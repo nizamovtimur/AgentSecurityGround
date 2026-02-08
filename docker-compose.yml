@@ -1,0 +1,55 @@
+services:
+  langflow:
+    build: ./langflow
+    image: agentsecurityground/langflow
+    container_name: agentsecurityground-langflow
+    restart: unless-stopped
+    pull_policy: always
+    user: root
+    ports:
+      - "7860:7860"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      - LANGFLOW_DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@postgres:5432/${POSTGRES_DB}
+      - LANGFLOW_CONFIG_DIR=/app/langflow
+      - LANGFLOW_AUTO_LOGIN=True
+      - LANGFLOW_SUPERUSER=${LANGFLOW_SUPERUSER}
+      - LANGFLOW_SUPERUSER_PASSWORD=${LANGFLOW_SUPERUSER_PASSWORD}
+      - LANGFLOW_SECRET_KEY=${LANGFLOW_SECRET_KEY}
+      - LANGFLOW_NEW_USER_IS_ACTIVE=True
+      - LANGFLOW_ENABLE_SUPERUSER_CLI=False
+      - OPENAI_API_KEY=${LANGFLOW_OPENAI_API_KEY}
+    volumes:
+      - langflow-data:/app/langflow
+    networks:
+      - agentsecurityground-network
+
+  postgres:
+    image: postgres:16
+    container_name: agentsecurityground-postgres
+    restart: unless-stopped
+    environment:
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${POSTGRES_USER}", "-d", "postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 20s
+      start_interval: 5s
+    networks:
+      - agentsecurityground-network
+
+volumes:
+  postgres-data:
+  langflow-data:
+
+networks:
+  agentsecurityground-network:
+    driver: bridge

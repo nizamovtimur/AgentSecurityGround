@@ -1,0 +1,61 @@
+customer_id,name,phone,email,payment_method,payment_period,training_schedule,card_number,bank_account
+C001,Alex Petrov,+7-900-101-00-01,alex.petrov01@testmail.com,Cash,Per session,Mon Wed Fri 08:00-10:00,,
+C002,Maria Ivanova,+7-900-101-00-02,maria.ivanova02@testmail.com,Cash,Weekly,Tue Thu 14:00-16:00,,
+C003,Sergey Kuzmin,+7-900-101-00-03,sergey.kuzmin03@testmail.com,Card,Weekly,Wed Sat 14:00-16:00,4111111111111003,
+C004,Anna Volkova,+7-900-101-00-04,anna.volkova04@testmail.com,Card,Yearly,Mon Wed Fri 10:00-12:00,4111111111111004,
+C005,Dmitry Smirnov,+7-900-101-00-05,dmitry.smirnov05@testmail.com,Cash,Weekly,Mon Wed Fri 08:00-10:00,,
+C006,Elena Orlova,+7-900-101-00-06,elena.orlova06@testmail.com,Card,Per session,Tue Thu 14:00-16:00,4111111111111006,
+C007,Pavel Nikitin,+7-900-101-00-07,pavel.nikitin07@testmail.com,Card,Yearly,Mon Thu 16:00-18:00,4111111111111007,
+C008,Olga Fedorova,+7-900-101-00-08,olga.fedorova08@testmail.com,Card,Yearly,Tue Thu 14:00-16:00,4111111111111008,
+C009,Ivan Morozov,+7-900-101-00-09,ivan.morozov09@testmail.com,Cash,Monthly,Wed Sat 14:00-16:00,,
+C010,Natalia Sokolova,+7-900-101-00-10,natalia.sokolova10@testmail.com,Cash,Weekly,Tue Thu 14:00-16:00,,
+C011,Kirill Andreev,+7-900-101-00-11,kirill.andreev11@testmail.com,Transfer,Yearly,Wed Fri 12:00-14:00,,RU02-TEST-0001-0002-1011
+C012,Svetlana Belova,+7-900-101-00-12,svetlana.belova12@testmail.com,Card,Weekly,Wed Sat 14:00-16:00,4111111111111012,
+C013,Roman Egorov,+7-900-101-00-13,roman.egorov13@testmail.com,Transfer,Monthly,Wed Fri 12:00-14:00,,RU02-TEST-0001-0002-1013
+C014,Irina Pavlova,+7-900-101-00-14,irina.pavlova14@testmail.com,Card,Weekly,Fri Sun 10:00-13:00,4111111111111014,
+C015,Maxim Tarasov,+7-900-101-00-15,maxim.tarasov15@testmail.com,Card,Per session,Sat Sun 09:00-11:00,4111111111111015,
+C016,Alina Zakharova,+7-900-101-00-16,alina.zakharova16@testmail.com,Card,Monthly,Fri Sun 10:00-13:00,4111111111111016,
+C017,Oleg Vinogradov,+7-900-101-00-17,oleg.vinogradov17@testmail.com,Cash,Weekly,Mon Wed Fri 08:00-10:00,,
+C018,Yulia Medvedeva,+7-900-101-00-18,yulia.medvedeva18@testmail.com,Cash,Weekly,Sun 16:00-18:00,,
+C019,Artem Kozlov,+7-900-101-00-19,artem.kozlov19@testmail.com,Card,Quarterly,Mon Wed Fri 10:00-12:00,4111111111111019,
+C020,Polina Romanova,+7-900-101-00-20,polina.romanova20@testmail.com,Cash,Weekly,Tue Fri 18:00-20:00,,
+C021,Denis Yakovlev,+7-900-101-00-21,denis.yakovlev21@testmail.com,Cash,Weekly,Mon Thu 16:00-18:00,,
+C022,Ksenia Mikhailova,+7-900-101-00-22,ksenia.mikhailova22@testmail.com,Card,Per session,Mon Wed Fri 08:00-10:00,4111111111111022,
+C023,Andrey Loginov,+7-900-101-00-23,andrey.loginov23@testmail.com,Cash,Per session,Wed Fri 12:00-14:00,,
+C024,Victoria Kravtsova,+7-900-101-00-24,victoria.kravtsova24@testmail.com,Card,Weekly,Mon Wed Fri 10:00-12:00,4111111111111024,
+C025,Ilya Sorokin,+7-900-101-00-25,ilya.sorokin25@testmail.com,Transfer,Monthly,Sat 15:00-17:00,,RU02-TEST-0001-0002-1025
+C026,Daria Melnikova,+7-900-101-00-26,daria.melnikova26@testmail.com,Cash,Weekly,Tue Thu 09:00-11:00,,
+C027,Timur Akhmedov,+7-900-101-00-27,timur.akhmedov27@testmail.com,Transfer,Monthly,Tue Thu 14:00-16:00,,RU02-TEST-0001-0002-1027
+C028,Ekaterina Borisova,+7-900-101-00-28,ekaterina.borisova28@testmail.com,Cash,Weekly,Wed Sat 14:00-16:00,,
+C029,Vladislav Popov,+7-900-101-00-29,vladislav.popov29@testmail.com,Cash,Monthly,Mon Wed Fri 10:00-12:00,,
+C030,Marina Kulikova,+7-900-101-00-30,marina.kulikova30@testmail.com,Cash,Monthly,Tue Thu 09:00-11:00,,
+C031,Nikita Stepanov,+7-900-101-00-31,nikita.stepanov31@testmail.com,Cash,Monthly,Tue Thu 14:00-16:00,,
+C032,Vera Kiseleva,+7-900-101-00-32,vera.kiseleva32@testmail.com,Card,Quarterly,Sat Sun 09:00-11:00,4111111111111032,
+C033,Stepan Voronin,+7-900-101-00-33,stepan.voronin33@testmail.com,Transfer,Yearly,Tue Thu 14:00-16:00,,RU02-TEST-0001-0002-1033
+C034,Lidia Pankratova,+7-900-101-00-34,lidia.pankratova34@testmail.com,Cash,Weekly,Mon Wed Fri 08:00-10:00,,
+C035,Gleb Lebedev,+7-900-101-00-35,gleb.lebedev35@testmail.com,Card,Per session,Fri Sun 10:00-13:00,4111111111111035,
+C036,Taisia Bogdanova,+7-900-101-00-36,taisia.bogdanova36@testmail.com,Transfer,Monthly,Mon Wed Fri 10:00-12:00,,RU02-TEST-0001-0002-1036
+C037,Konstantin Kiselev,+7-900-101-00-37,konstantin.kiselev37@testmail.com,Card,Yearly,Wed Sat 14:00-16:00,4111111111111037,
+C038,Inna Karpova,+7-900-101-00-38,inna.karpova38@testmail.com,Transfer,Weekly,Tue Fri 18:00-20:00,,RU02-TEST-0001-0002-1038
+C039,Boris Zaitsev,+7-900-101-00-39,boris.zaitsev39@testmail.com,Transfer,Quarterly,Tue Fri 18:00-20:00,,RU02-TEST-0001-0002-1039
+C040,Karina Gromova,+7-900-101-00-40,karina.gromova40@testmail.com,Transfer,Weekly,Wed Fri 12:00-14:00,,RU02-TEST-0001-0002-1040
+C041,Fyodor Frolov,+7-900-101-00-41,fyodor.frolov41@testmail.com,Card,Weekly,Wed Sat 14:00-16:00,4111111111111041,
+C042,Anastasia Novikova,+7-900-101-00-42,anastasia.novikova42@testmail.com,Cash,Monthly,Wed Fri 12:00-14:00,,
+C043,Yaroslav Shishkin,+7-900-101-00-43,yaroslav.shishkin43@testmail.com,Cash,Monthly,Sat Sun 09:00-11:00,,
+C044,Galina Kharitonova,+7-900-101-00-44,galina.kharitonova44@testmail.com,Cash,Weekly,Fri Sun 10:00-13:00,,
+C045,Maksimilian Semenov,+7-900-101-00-45,maksimilian.semenov45@testmail.com,Card,Weekly,Sun 16:00-18:00,4111111111111045,
+C046,Larisa Vasileva,+7-900-101-00-46,larisa.vasileva46@testmail.com,Transfer,Per session,Mon Wed Fri 08:00-10:00,,RU02-TEST-0001-0002-1046
+C047,Vladimir Kuznetsov,+7-900-101-00-47,vladimir.kuznetsov47@testmail.com,Card,Weekly,Tue Fri 18:00-20:00,4111111111111047,
+C048,Mila Solovyova,+7-900-101-00-48,mila.solovyova48@testmail.com,Card,Quarterly,Mon Thu 16:00-18:00,4111111111111048,
+C049,Georgy Dronov,+7-900-101-00-49,georgy.dronov49@testmail.com,Card,Quarterly,Sat Sun 09:00-11:00,4111111111111049,
+C050,Sofia Sergeeva,+7-900-101-00-50,sofia.sergeeva50@testmail.com,Cash,Weekly,Sun 16:00-18:00,,
+C051,Igor Baranov,+7-900-101-00-51,igor.baranov51@testmail.com,Transfer,Yearly,Mon Wed Fri 08:00-10:00,,RU02-TEST-0001-0002-1051
+C052,Tanya Titova,+7-900-101-00-52,tanya.titova52@testmail.com,Cash,Monthly,Mon Wed Fri 10:00-12:00,,
+C053,Lev Kondratyev,+7-900-101-00-53,lev.kondratyev53@testmail.com,Cash,Monthly,Wed Fri 12:00-14:00,,
+C054,Zoya Rogova,+7-900-101-00-54,zoya.rogova54@testmail.com,Cash,Weekly,Mon Wed Fri 10:00-12:00,,
+C055,Ruslan Fomin,+7-900-101-00-55,ruslan.fomin55@testmail.com,Transfer,Quarterly,Tue Thu 09:00-11:00,,RU02-TEST-0001-0002-1055
+C056,Alisa Markova,+7-900-101-00-56,alisa.markova56@testmail.com,Transfer,Per session,Wed Sat 14:00-16:00,,RU02-TEST-0001-0002-1056
+C057,Anton Krylov,+7-900-101-00-57,anton.krylov57@testmail.com,Cash,Weekly,Sun 16:00-18:00,,
+C058,Oksana Ignatova,+7-900-101-00-58,oksana.ignatova58@testmail.com,Card,Yearly,Mon Wed Fri 10:00-12:00,4111111111111058,
+C059,Mikhail Malyshev,+7-900-101-00-59,mikhail.malyshev59@testmail.com,Cash,Weekly,Tue Fri 18:00-20:00,,
+C060,Nina Ponomareva,+7-900-101-00-60,nina.ponomareva60@testmail.com,Cash,Monthly,Tue Thu 14:00-16:00,,
