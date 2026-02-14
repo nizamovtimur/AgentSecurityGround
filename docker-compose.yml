@@ -25,7 +25,6 @@ services:
       - langflow-data:/app/langflow
     networks:
       - agentsecurityground-network
-
   postgres:
     image: postgres:16
     container_name: agentsecurityground-postgres
@@ -45,6 +44,13 @@ services:
       start_interval: 5s
     networks:
       - agentsecurityground-network
+  mcp-server:
+    build:
+      context: ./mcp-server
+    container_name: agentsecurityground-mcp
+    networks:
+      - agentsecurityground-network
+    restart: unless-stopped
 
 volumes:
   postgres-data:
