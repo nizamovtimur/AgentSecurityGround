@@ -92,6 +92,14 @@ def update_booking(update: UpdateBooking) -> dict:
         return {"status": "error", "message": "Booking not found"}
 
 
+@mcp.tool()
+def clear_bookings() -> dict:
+    """Clear all bookings from the database. Use between test runs to reset state."""
+    df = pd.DataFrame(columns=["id", "name", "datetime", "notes", "contact", "created_at"])
+    save_bookings(df)
+    return {"status": "success", "message": "All bookings cleared"}
+
+
 mcp_app = mcp.streamable_http_app()
 
 if __name__ == "__main__":
