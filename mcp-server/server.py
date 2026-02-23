@@ -17,6 +17,7 @@ mcp = FastMCP(
     ),
 )
 
+
 class Booking(BaseModel):
     name: str
     datetime: str
@@ -38,6 +39,7 @@ def load_bookings() -> pd.DataFrame:
     else:
         df = pd.DataFrame(columns=["id", "name", "datetime", "notes", "contact", "created_at"])
     return df
+
 
 def save_bookings(df: pd.DataFrame):
     df.to_csv(CSV_FILE, index=False)
