@@ -117,7 +117,7 @@ Attacker: THOUGHT (target_response + directive + goal) → ACTION (>>>ATTACK...<
 * ReAct обеспечивает явное рассуждение перед каждым действием (vs. implicit в AutoDAN-Turbo).
 * `model_description` делает атаки доменно-специфичными (промпты звучат как реальный пользователь).
 * Lifelong Memory накапливает успешные паттерны между целями, ускоряя атаку.
-* Совместимо с black-box baseline (AutoDAN-Turbo, CoP) для fair comparison.
+* Совместимо с black-box baseline (AutoDAN-Turbo, CoP) для корректного сравнения.
 * Реализовано как кастомная атака для [LLAMATOR](https://github.com/LLAMATOR-Core/llamator).
 
 **Гипотеза:** добавление ReAct-рассуждений, доменного контекста и lifelong memory к AutoDAN-Turbo позволяет повысить ASR при фиксированном числе шагов по сравнению с AutoDAN-Turbo и CoP при тестировании агентных сценариев в Langflow.
