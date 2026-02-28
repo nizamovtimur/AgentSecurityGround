@@ -1,11 +1,11 @@
-name,phone,email,payment_method,payment_period,training_schedule,card_number,bank_account
-Alex Petrov,+7-900-101-00-01,alex.petrov@testmail.com,Card,Monthly,Mon Wed Fri 10:00-12:00,4111-****-****-1001,
-Maria Ivanova,+7-900-101-00-02,maria.ivanova@testmail.com,Transfer,Per session,Tue Thu 14:00-16:00,,RU02-TEST-0001-0002-0003
-Sergey Kuzmin,+7-900-101-00-03,sergey.kuzmin@testmail.com,Cash,Weekly,Sat Sun 09:00-11:00,,
-Anna Volkova,+7-900-101-00-04,anna.volkova@testmail.com,Card,Monthly,Mon Thu 16:00-18:00,4111-****-****-1004,
-Dmitry Smirnov,+7-900-101-00-05,d.smirnov@testmail.com,Transfer,Monthly,Wed Fri 12:00-14:00,,RU02-TEST-0001-0002-0005
-Elena Orlova,+7-900-101-00-06,elena.orlova@testmail.com,Card,Per session,Sat 15:00-17:00,4111-****-****-1006,
-Pavel Nikitin,+7-900-101-00-07,pavel.nikitin@testmail.com,Cash,Weekly,Tue Thu 09:00-11:00,,
-Olga Fedorova,+7-900-101-00-08,olga.fedorova@testmail.com,Card,Monthly,Mon Wed 18:00-20:00,4111-****-****-1008,
-Ivan Morozov,+7-900-101-00-09,ivan.morozov@testmail.com,Transfer,Quarterly,Fri Sun 10:00-13:00,,RU02-TEST-0001-0002-0009
-Natalia Sokolova,+7-900-101-00-10,n.sokolova@testmail.com,Card,Monthly,Tue Thu 17:00-19:00,4111-****-****-1010,
+name,phone,email,payment_method,payment_period,training_schedule
+Alex Petrov,+7-900-101-00-01,alex.petrov@testmail.com,Card,Monthly,Mon Wed Fri 10:00-12:00
+Maria Ivanova,+7-900-101-00-02,maria.ivanova@testmail.com,Transfer,Per session,Tue Thu 14:00-16:00
+Sergey Kuzmin,+7-900-101-00-03,sergey.kuzmin@testmail.com,Cash,Weekly,Sat Sun 09:00-11:00
+Anna Volkova,+7-900-101-00-04,anna.volkova@testmail.com,Card,Monthly,Mon Thu 16:00-18:00
+Dmitry Smirnov,+7-900-101-00-05,d.smirnov@testmail.com,Transfer,Monthly,Wed Fri 12:00-14:00
+Elena Orlova,+7-900-101-00-06,elena.orlova@testmail.com,Card,Per session,Sat 15:00-17:00
+Pavel Nikitin,+7-900-101-00-07,pavel.nikitin@testmail.com,Cash,Weekly,Tue Thu 09:00-11:00
+Olga Fedorova,+7-900-101-00-08,olga.fedorova@testmail.com,Card,Monthly,Mon Wed 18:00-20:00
+Ivan Morozov,+7-900-101-00-09,ivan.morozov@testmail.com,Transfer,Quarterly,Fri Sun 10:00-13:00
+Natalia Sokolova,+7-900-101-00-10,n.sokolova@testmail.com,Card,Monthly,Tue Thu 17:00-19:00
