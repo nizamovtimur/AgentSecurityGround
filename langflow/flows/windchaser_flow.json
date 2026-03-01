@@ -235,36 +235,6 @@
         "className": "",
         "data": {
           "sourceHandle": {
-            "dataType": "File",
-            "id": "File-C5dyL",
-            "name": "dataframe",
-            "output_types": [
-              "DataFrame"
-            ]
-          },
-          "targetHandle": {
-            "fieldName": "data_inputs",
-            "id": "SplitText-GU65W",
-            "inputTypes": [
-              "Data",
-              "DataFrame",
-              "Message"
-            ],
-            "type": "other"
-          }
-        },
-        "id": "xy-edge__File-C5dyL{œdataTypeœ:œFileœ,œidœ:œFile-C5dyLœ,œnameœ:œdataframeœ,œoutput_typesœ:[œDataFrameœ]}-SplitText-GU65W{œfieldNameœ:œdata_inputsœ,œidœ:œSplitText-GU65Wœ,œinputTypesœ:[œDataœ,œDataFrameœ,œMessageœ],œtypeœ:œotherœ}",
-        "selected": false,
-        "source": "File-C5dyL",
-        "sourceHandle": "{œdataTypeœ:œFileœ,œidœ:œFile-C5dyLœ,œnameœ:œdataframeœ,œoutput_typesœ:[œDataFrameœ]}",
-        "target": "SplitText-GU65W",
-        "targetHandle": "{œfieldNameœ:œdata_inputsœ,œidœ:œSplitText-GU65Wœ,œinputTypesœ:[œDataœ,œDataFrameœ,œMessageœ],œtypeœ:œotherœ}"
-      },
-      {
-        "animated": false,
-        "className": "",
-        "data": {
-          "sourceHandle": {
             "dataType": "CurrentDate",
             "id": "CurrentDate-QtUNO",
             "name": "current_date",
@@ -343,6 +313,36 @@
         "sourceHandle": "{œdataTypeœ:œMCPToolsœ,œidœ:œMCPTools-zm2eJœ,œnameœ:œcomponent_as_toolœ,œoutput_typesœ:[œToolœ]}",
         "target": "Agent-6sMka",
         "targetHandle": "{œfieldNameœ:œtoolsœ,œidœ:œAgent-6sMkaœ,œinputTypesœ:[œToolœ],œtypeœ:œotherœ}"
+      },
+      {
+        "animated": false,
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "File",
+            "id": "File-C5dyL",
+            "name": "dataframe",
+            "output_types": [
+              "DataFrame"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "data_inputs",
+            "id": "SplitText-GU65W",
+            "inputTypes": [
+              "Data",
+              "DataFrame",
+              "Message"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "xy-edge__File-C5dyL{œdataTypeœ:œFileœ,œidœ:œFile-C5dyLœ,œnameœ:œdataframeœ,œoutput_typesœ:[œDataFrameœ]}-SplitText-GU65W{œfieldNameœ:œdata_inputsœ,œidœ:œSplitText-GU65Wœ,œinputTypesœ:[œDataœ,œDataFrameœ,œMessageœ],œtypeœ:œotherœ}",
+        "selected": false,
+        "source": "File-C5dyL",
+        "sourceHandle": "{œdataTypeœ:œFileœ,œidœ:œFile-C5dyLœ,œnameœ:œdataframeœ,œoutput_typesœ:[œDataFrameœ]}",
+        "target": "SplitText-GU65W",
+        "targetHandle": "{œfieldNameœ:œdata_inputsœ,œidœ:œSplitText-GU65Wœ,œinputTypesœ:[œDataœ,œDataFrameœ,œMessageœ],œtypeœ:œotherœ}"
       }
     ],
     "nodes": [
@@ -634,12 +634,12 @@
         "dragging": false,
         "id": "ChatInput-oz6uW",
         "measured": {
-          "height": 203,
+          "height": 204,
           "width": 320
         },
         "position": {
-          "x": 1268.8724802675615,
-          "y": 1757.1991857829587
+          "x": 1068.9277882953122,
+          "y": 1595.7980488896972
         },
         "selected": false,
         "type": "genericNode"
@@ -1220,12 +1220,12 @@
         "dragging": false,
         "id": "OpenAIEmbeddings-mZKpc",
         "measured": {
-          "height": 285,
+          "height": 286,
           "width": 320
         },
         "position": {
-          "x": 1263.0541353038338,
-          "y": 1313.074469730591
+          "x": 1260.5800496130105,
+          "y": 1246.2741560783575
         },
         "selected": false,
         "type": "genericNode"
@@ -1387,7 +1387,7 @@
         "dragging": false,
         "id": "Prompt-et6fa",
         "measured": {
-          "height": 365,
+          "height": 367,
           "width": 320
         },
         "position": {
@@ -1424,7 +1424,7 @@
             ],
             "frozen": false,
             "icon": "FAISS",
-            "last_updated": "2026-02-15T10:50:29.247Z",
+            "last_updated": "2026-03-01T11:04:02.446Z",
             "legacy": false,
             "lf_version": "1.7.3",
             "metadata": {
@@ -1472,7 +1472,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "6bffdf48-5685-4e3b-bb2b-75d4cca2ffee"
+                "value": "f0a0c641-b433-4dd8-a12b-23693ee25137"
               },
               "_type": "Component",
               "allow_dangerous_deserialization": {
@@ -1582,7 +1582,7 @@
               "is_refresh": false,
               "number_of_results": {
                 "_input_type": "IntInput",
-                "advanced": true,
+                "advanced": false,
                 "display_name": "Number of Results",
                 "dynamic": false,
                 "info": "Number of results to return.",
@@ -1598,7 +1598,7 @@
                 "trace_as_metadata": true,
                 "track_in_telemetry": true,
                 "type": "int",
-                "value": 5
+                "value": 3
               },
               "persist_directory": {
                 "_input_type": "StrInput",
@@ -1739,12 +1739,12 @@
         "dragging": false,
         "id": "FAISS-iTAnH",
         "measured": {
-          "height": 453,
+          "height": 538,
           "width": 320
         },
         "position": {
           "x": 2027.3590464678884,
-          "y": 1262.197739333657
+          "y": 1201.7100382863377
         },
         "selected": false,
         "type": "genericNode"
@@ -1986,12 +1986,12 @@
         "dragging": false,
         "id": "SplitText-GU65W",
         "measured": {
-          "height": 411,
+          "height": 413,
           "width": 320
         },
         "position": {
           "x": 1644.9520454522915,
-          "y": 1133.1641005329202
+          "y": 1076.2601296439805
         },
         "selected": false,
         "type": "genericNode"
@@ -2040,7 +2040,7 @@
             ],
             "frozen": false,
             "icon": "bot",
-            "last_updated": "2026-02-15T10:50:29.249Z",
+            "last_updated": "2026-03-01T11:04:02.447Z",
             "legacy": false,
             "lf_version": "1.7.3",
             "metadata": {
@@ -2091,7 +2091,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "6bffdf48-5685-4e3b-bb2b-75d4cca2ffee"
+                "value": "f0a0c641-b433-4dd8-a12b-23693ee25137"
               },
               "_type": "Component",
               "add_current_date_tool": {
@@ -2792,7 +2792,7 @@
         },
         "id": "Agent-6sMka",
         "measured": {
-          "height": 673,
+          "height": 677,
           "width": 320
         },
         "position": {
@@ -2982,7 +2982,7 @@
         "dragging": false,
         "id": "Prompt-o3Ett",
         "measured": {
-          "height": 447,
+          "height": 449,
           "width": 320
         },
         "position": {
@@ -3441,7 +3441,7 @@
         "dragging": false,
         "id": "OpenAIModel-ONICb",
         "measured": {
-          "height": 537,
+          "height": 540,
           "width": 320
         },
         "position": {
@@ -3742,7 +3742,7 @@
         "dragging": false,
         "id": "ChatOutput-ajmE4",
         "measured": {
-          "height": 165,
+          "height": 166,
           "width": 320
         },
         "position": {
@@ -4064,7 +4064,7 @@
         "dragging": false,
         "id": "ConditionalRouter-U5rf1",
         "measured": {
-          "height": 633,
+          "height": 636,
           "width": 320
         },
         "position": {
@@ -4366,7 +4366,7 @@
         "dragging": false,
         "id": "ChatOutput-dsa4P",
         "measured": {
-          "height": 165,
+          "height": 166,
           "width": 320
         },
         "position": {
@@ -4399,7 +4399,7 @@
             ],
             "frozen": false,
             "icon": "Mcp",
-            "last_updated": "2026-02-15T10:50:29.252Z",
+            "last_updated": "2026-03-01T11:04:02.449Z",
             "legacy": false,
             "lf_version": "1.7.3",
             "metadata": {
@@ -4451,7 +4451,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "6bffdf48-5685-4e3b-bb2b-75d4cca2ffee"
+                "value": "f0a0c641-b433-4dd8-a12b-23693ee25137"
               },
               "_type": "Component",
               "code": {
@@ -4659,7 +4659,7 @@
         "dragging": false,
         "id": "MCPTools-zm2eJ",
         "measured": {
-          "height": 353,
+          "height": 355,
           "width": 320
         },
         "position": {
@@ -4704,7 +4704,7 @@
             ],
             "frozen": false,
             "icon": "file-text",
-            "last_updated": "2026-02-15T10:51:38.952Z",
+            "last_updated": "2026-03-01T11:04:02.452Z",
             "legacy": false,
             "lf_version": "1.7.3",
             "metadata": {
@@ -4756,7 +4756,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "6bffdf48-5685-4e3b-bb2b-75d4cca2ffee"
+                "value": "f0a0c641-b433-4dd8-a12b-23693ee25137"
               },
               "_type": "Component",
               "advanced_mode": {
@@ -5089,11 +5089,10 @@
                   "gz"
                 ],
                 "file_path": [
-                  "f8b54f58-e125-4ff5-92a8-e81d880e31b9/kitesurf_customers.csv",
-                  "f8b54f58-e125-4ff5-92a8-e81d880e31b9/kitesurf_training_plan.csv",
-                  "f8b54f58-e125-4ff5-92a8-e81d880e31b9/kitesurf_training_sessions_4weeks.csv",
-                  "f8b54f58-e125-4ff5-92a8-e81d880e31b9/Kitesurfing-Mini-Guide.pdf",
-                  "f8b54f58-e125-4ff5-92a8-e81d880e31b9/preview_discovery_eng.pdf"
+                  "acf0fb29-059b-4c1e-bd61-0f8209eabd2c/kitesurf_customers.csv",
+                  "acf0fb29-059b-4c1e-bd61-0f8209eabd2c/kitesurf_training_plan.csv",
+                  "acf0fb29-059b-4c1e-bd61-0f8209eabd2c/Kitesurfing-Mini-Guide.pdf",
+                  "acf0fb29-059b-4c1e-bd61-0f8209eabd2c/preview_discovery_eng.pdf"
                 ],
                 "info": "Supported file extensions: csv, json, pdf, txt, md, mdx, yaml, yml, xml, html, htm, docx, py, sh, sql, js, ts, tsx, adoc, asciidoc, asc, bmp, dotx, dotm, docm, jpg, jpeg, png, potx, ppsx, pptm, potm, ppsm, pptx, tiff, xls, xlsx, xhtml, webp; optionally bundled in file extensions: zip, tar, tgz, bz2, gz",
                 "list": true,
@@ -5211,12 +5210,12 @@
         "dragging": false,
         "id": "File-C5dyL",
         "measured": {
-          "height": 365,
+          "height": 366,
           "width": 320
         },
         "position": {
-          "x": 1268.2745580715855,
-          "y": 878.3259847269695
+          "x": 1265.800472380762,
+          "y": 831.3183566013237
         },
         "selected": false,
         "type": "genericNode"
@@ -5926,14 +5925,14 @@
         "dragging": false,
         "id": "CurrentDate-QtUNO",
         "measured": {
-          "height": 219,
+          "height": 220,
           "width": 320
         },
         "position": {
           "x": 2023.7972172895138,
           "y": 576.2638317766484
         },
-        "selected": true,
+        "selected": false,
         "type": "genericNode"
       },
       {
@@ -5966,6 +5965,7 @@
             "is_input": null,
             "is_output": null,
             "legacy": false,
+            "lf_version": "1.7.3",
             "metadata": {
               "code_hash": "7382d03ce412",
               "dependencies": {
@@ -6101,7 +6101,7 @@
         "dragging": false,
         "id": "Prompt Template-E8UCr",
         "measured": {
-          "height": 365,
+          "height": 367,
           "width": 320
         },
         "position": {
@@ -6276,7 +6276,7 @@
         "dragging": false,
         "id": "Prompt Template-lXkLU",
         "measured": {
-          "height": 365,
+          "height": 367,
           "width": 320
         },
         "position": {
@@ -6288,9 +6288,9 @@
       }
     ],
     "viewport": {
-      "x": -424.7832644171831,
-      "y": -221.64989762379855,
-      "zoom": 0.4815948724428715
+      "x": -380.1965338857085,
+      "y": -146.68257799402886,
+      "zoom": 0.41511479590325756
     }
   },
   "description": "",

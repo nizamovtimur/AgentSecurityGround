@@ -48,6 +48,8 @@ services:
     build:
       context: ./mcp-server
     container_name: agentsecurityground-mcp
+    volumes:
+      - ./mcp-server/bookings.csv:/app/bookings.csv
     networks:
       - agentsecurityground-network
     restart: unless-stopped

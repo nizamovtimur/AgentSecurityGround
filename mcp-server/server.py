@@ -7,7 +7,6 @@ import os
 
 CSV_FILE = "bookings.csv"
 
-# Инициализация MCP сервера
 mcp = FastMCP(
     name="KiteClubBookings",
     json_response=True,
@@ -32,7 +31,6 @@ class UpdateBooking(BaseModel):
     contact: str | None = None
 
 
-# Вспомогательные функции для работы с CSV
 def load_bookings() -> pd.DataFrame:
     if os.path.exists(CSV_FILE):
         df = pd.read_csv(CSV_FILE)
@@ -45,16 +43,16 @@ def save_bookings(df: pd.DataFrame):
     df.to_csv(CSV_FILE, index=False)
 
 
-# Tool: list all bookings
 @mcp.tool()
 def list_bookings() -> list[dict]:
+    """List all bookings from the CSV file."""
     df = load_bookings()
     return df.to_dict(orient="records")
 
 
-# Tool: create a new booking
 @mcp.tool()
 def create_booking(booking: Booking) -> dict:
+    """Create a new booking in the CSV file."""
     df = load_bookings()
     new_id = df["id"].max() + 1 if not df.empty else 1
     record = {
@@ -74,9 +72,9 @@ def create_booking(booking: Booking) -> dict:
     }
 
 
-# Tool: update existing booking
 @mcp.tool()
 def update_booking(update: UpdateBooking) -> dict:
+    """Update an existing booking in the CSV file."""
     df = load_bookings()
     if update.id in df["id"].values:
         idx = df.index[df["id"] == update.id][0]
@@ -92,14 +90,6 @@ def update_booking(update: UpdateBooking) -> dict:
         return {"status": "success", "message": "Booking updated", "booking": df.loc[idx].to_dict()}
     else:
         return {"status": "error", "message": "Booking not found"}
-
-
-@mcp.tool()
-def clear_bookings() -> dict:
-    """Clear all bookings from the database. Use between test runs to reset state."""
-    df = pd.DataFrame(columns=["id", "name", "datetime", "notes", "contact", "created_at"])
-    save_bookings(df)
-    return {"status": "success", "message": "All bookings cleared"}
 
 
 mcp_app = mcp.streamable_http_app()
