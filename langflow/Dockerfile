@@ -1,5 +1,4 @@
-# need fix issue https://github.com/langflow-ai/langflow/issues/11313 !!!
-FROM langflowai/langflow:1.7.3
+FROM langflowai/langflow:1.8.0
 
 WORKDIR /app
 
@@ -9,7 +8,7 @@ RUN python3 -m ensurepip && python -m pip install --no-cache-dir -r requirements
 RUN mkdir /app/flows
 COPY flows /app/flows
 
-COPY components /app/components
+# COPY components /app/components
 
 ENV PYTHONPATH=/app
 ENV LANGFLOW_LOAD_FLOWS_PATH=/app/flows
