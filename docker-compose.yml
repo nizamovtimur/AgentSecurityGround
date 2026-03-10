@@ -21,6 +21,7 @@ services:
       - LANGFLOW_NEW_USER_IS_ACTIVE=True
       - LANGFLOW_ENABLE_SUPERUSER_CLI=False
       - OPENAI_API_KEY=${LANGFLOW_OPENAI_API_KEY}
+      - OPENAI_BASE_URL=${LANGFLOW_OPENAI_BASE_URL}
     volumes:
       - langflow-data:/app/langflow
     networks:
