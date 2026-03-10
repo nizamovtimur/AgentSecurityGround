@@ -52,6 +52,8 @@ docker compose --env-file .env up -d --build
 
 ### LLAMATOR
 
+[[Блокнот](llamator/llamator.ipynb)]
+
 * Composition of Principles
 * Past Tense
 * Repeat token DOS
@@ -77,6 +79,10 @@ docker compose --env-file .env up -d --build
  - подключить LangFuse
 
 ## Boss-Orchestrated Agentic Red-Teaming (BORAT)
+
+[[Блокнот](llamator/llamator-borat.ipynb)]
+
+[[Замеры ASR](llamator/asr_evaluation.ipynb)]
 
 **BORAT** (Boss-Orchestrated Agentic Red-Teaming) — методология агентного редтиминга, в которой стратегический агент (Boss) оркестрирует действия атакующего агента (Attacker) при тестировании мультиагентных диалоговых систем в условиях black-box. Метод реализован в рамках фреймворка [LLAMATOR](https://github.com/LLAMATOR-Core/llamator) и использует единую библиотеку стратегий совместно с AutoDAN-Turbo и CoP.
 
