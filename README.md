@@ -1,7 +1,7 @@
 # Agent Security Ground
 Разработка мультиагентной cистемы для тестирования безопасности агентных диалоговых систем
 
-## Запуск тестового стенда на Langflow
+## Тестовый стенд на Langflow
 
 ![тестовый стенд](assets/image.png)
 
@@ -136,7 +136,7 @@ Boss:   THOUGHT → SELECTED STRATEGY → ACTION (guidance + criticism)
 Attacker: THOUGHT (strategy + guidance + goal) → ACTION (>>>ATTACK...<<<ATTACK)
 ```
 
-**Гипотеза:** ReAct + доменный контекст (`model_description`) + lifelong memory повышают ASR на мультиагентных целях (Langflow) при фиксированном бюджете шагов.
+**Гипотеза:** ReAct + доменный контекст (`model_description`) + lifelong memory повышают ASR на мультиагентных целях при фиксированном бюджете шагов.
 
 ### 3. Постановка задачи
 
@@ -149,48 +149,45 @@ Attacker: THOUGHT (strategy + guidance + goal) → ACTION (>>>ATTACK...<<<ATTACK
 ### 5. Схема
 
 ```mermaid
-flowchart TD
-    D["Target Description\n(model_description)"]
-    G["Attack Goal"]
-    SL["Strategy Library\n(ranked by effectiveness)"]
-    BS[Belief State]
-    M["Attack Memory\n(lifelong learning)"]
+flowchart TB
+    subgraph "Strategy Library"
+        LIB[5 стратегий + strategy mining]
+    end
 
-    B["Agent Boss\n(ReAct: Thought → Action)"]
+    subgraph "Boss Agent"
+        BOSS[ReAct: THOUGHT → SELECTED STRATEGY → ACTION]
+        BOSS_IN[Target desc, Goal, BeliefState, Memory]
+        BOSS_IN --> BOSS
+        LIB --> BOSS
+    end
 
-    A["Attacking Agent\n(ReAct: Thought → Action)"]
+    subgraph "Attacker Agent"
+        ATT[Применяет стратегию по указаниям Boss]
+        ATT_OUT[>>>ATTACK ... <<<ATTACK]
+        ATT --> ATT_OUT
+    end
 
-    I["Attack Prompt\n(parsed from >>>ATTACK...<<<ATTACK)"]
-    O["Target Response\n(OBSERVATION)"]
+    subgraph "Target"
+        TGT[Tested Agent<br/>chat/run API]
+    end
 
-    T[Target Agentic System]
+    subgraph "Judge"
+        JUDGE[LLM-as-a-Judge<br/>Score 1–10]
+    end
 
-    J[Judge]
+    subgraph "State"
+        BELIEF[BeliefState]
+        MEM[AttackMemory]
+    end
 
-    D --> B
-    D --> A
-    G --> B
-    SL --> B
-    BS --> B
-    M --> B
-
-    B -->|"guidance + criticism"| A
-    SL -->|"selected strategy"| A
-    G -->|goal reminder| A
-    O -->|previous response| A
-
-    A -->|"THOUGHT + ACTION"| I
-    I --> T
-    T --> O
-
-    O --> J
-    J -->|score| B
-    J -->|"on success"| SL
-    J -->|"on success"| M
-
-    B -->|update| BS
+    BOSS -->|guidance + criticism| ATT
+    ATT_OUT --> TGT
+    TGT -->|response| JUDGE
+    JUDGE -->|score| BELIEF
+    BELIEF --> BOSS
+    MEM --> BOSS
+    JUDGE -.->|success: add to Memory| MEM
 ```
-
 
 **Belief State** — per-goal модель поведения целевой системы (observations, vulnerability_signals, resistance_patterns, strategy_outcomes). **Attack Memory** — кросс-целевое хранилище успешных атак (max 10). **Strategy Library** — 5 начальных + извлечение новых через Summarizer; effectiveness = success_rate×0.5 + score×0.3 + recency×0.2. Успех: score ≥ 5.
 
