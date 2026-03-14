@@ -78,6 +78,34 @@ docker compose --env-file .env up -d --build
 ### TO DO
  - подключить LangFuse
 
+## Модуль MLSecOps для сканирования Langflow-сценариев
+
+Модуль `mlsecops_agent` — DevSecOps-пайплайн для интеграции в корпоративную AppSec-платформу. Подробная документация: [mlsecops_agent/README.md](mlsecops_agent/README.md).
+
+1. **Static Workflow Analysis** — загрузка флоу по FLOW_ID, парсинг узлов/связей/промптов/активов
+2. **Attack Surface Modeling** — threat modeling (MAESTRO для публичной демо, корпоративная модель — через `THREAT_MODEL_PATH`)
+3. **BORAT Scenario Generation** — генерация целей атаки из ассесмента
+4. **Runtime Attack Execution** — BORAT на OpenAI (без LLAMATOR)
+5. **JSON Report** — описание флоу, ассесмент, вектор атаки, история, критичность (LOW/MEDIUM/HIGH/CRITICAL)
+
+```bash
+# Установка
+pip install -r mlsecops_agent/requirements.txt
+
+# Сканирование по FLOW_ID (Langflow API)
+python -m mlsecops_agent.main $FLOW_ID -o report.json
+
+# Анализ без BORAT (только threat modeling по локальному JSON)
+python -m mlsecops_agent.main dummy --flow-file langflow/flows/Windchaser.json -o report.json
+
+# Другой API (Ollama, локальный прокси)
+export OPENAI_API_BASE=http://localhost:11434/v1
+export APP_SEC_ATTACK_MODEL=llama3.2
+python -m mlsecops_agent.main $FLOW_ID -o report.json
+```
+
+Переменные окружения: `LANGFLOW_URL`, `LANGFLOW_API_KEY`, `OPENAI_API_KEY`, `OPENAI_API_BASE`, `APP_SEC_ATTACK_MODEL`, `APP_SEC_JUDGE_MODEL`.
+
 ## Boss-Orchestrated Agentic Red-Teaming (BORAT)
 
 [[Блокнот](llamator/llamator-borat.ipynb)]

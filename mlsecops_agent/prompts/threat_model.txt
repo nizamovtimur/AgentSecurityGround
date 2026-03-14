@@ -42,9 +42,9 @@ Security Agent Data Poisoning: Attackers manipulating the training or operationa
 Evasion of Security AI Agents: Malicious actors using adversarial techniques to bypass security AI agents, causing them to not detect or properly respond to threats.
 Compromised Security AI Agents: Attackers gaining control over AI security agents, using them to perform malicious tasks or to disable security systems, directly impacting the AI security process.
 Regulatory Non-Compliance by AI Security Agents: AI security agents operating in violation of privacy regulations or other compliance standards, due to misconfiguration or improper training, creating legal risks.
-Bias in Security AI Agents: Biases in AI security agents that lead to unfair or discriminatory security practices, where certain systems are not adequately protected.
-Lack of Explainability in Security AI Agents: The lack of transparency in security AI agent’s decision-making, causing difficulty in auditing actions or identifying the root cause of security failures.
-Model Extraction of AI Security Agents: Attackers extracting the underlying model of an AI security agent, creating ways to bypass security systems by understanding how the system works.
+Bias in Security AI Agents: Biases in security AI agents that lead to unfair or discriminatory security practices, where certain systems are not adequately protected.
+Lack of Explainability in Security AI Agents: The lack of transparency in security AI agent's decision-making, causing difficulty in auditing actions or identifying the root cause of security failures.
+Model Extraction of AI Security Agents: Attackers extracting the underlying model of a security AI agent, creating ways to bypass security systems by understanding how the system works.
 Layer 5: Evaluation and Observability
 Description: This layer focuses on how AI agents are evaluated and monitored, including tools and processes for tracking performance and detecting anomalies.
 Threat Landscape:
@@ -67,11 +67,11 @@ Layer 3: Agent Frameworks
 Description: This layer encompasses the frameworks used to build the AI agents, for example toolkits for conversational AI, or frameworks that integrate data.
 Threat Landscape:
 Compromised Framework Components: Malicious code in libraries or modules used by AI frameworks, compromising the functionality of the framework and leading to unexpected results.
-* Backdoor Attacks: Hidden vulnerabilities or functionalities in the AI framework, exploited by attackers to gain unauthorized access and control over AI agents.
-* Input Validation Attacks: Exploiting weaknesses in how the AI framework handles user inputs, allowing for code injection and potential system compromise of AI agent systems.
-* Supply Chain Attacks: Targeting the AI framework’s dependencies, compromising software before delivery and distribution, resulting in compromised AI agent software.
-* Denial of Service on Framework APIs: Disrupting the AI framework’s ability to function, overloading services and preventing normal operation for the AI agents.
-* Framework Evasion: AI agents specifically designed to bypass security controls within the framework, using advanced techniques to perform unauthorized actions.
+Backdoor Attacks: Hidden vulnerabilities or functionalities in the AI framework, exploited by attackers to gain unauthorized access and control over AI agents.
+Input Validation Attacks: Exploiting weaknesses in how the AI framework handles user inputs, allowing for code injection and potential system compromise of AI agent systems.
+Supply Chain Attacks: Targeting the AI framework's dependencies, compromising software before delivery and distribution, resulting in compromised AI agent software.
+Denial of Service on Framework APIs: Disrupting the AI framework's ability to function, overloading services and preventing normal operation for the AI agents.
+Framework Evasion: AI agents specifically designed to bypass security controls within the framework, using advanced techniques to perform unauthorized actions.
 Layer 2: Data Operations
 Description: This is where data is processed, prepared, and stored for the AI agents, including databases, vector stores, RAG (Retrieval Augmented Generation) pipelines, and more.
 Threat Landscape:
@@ -170,7 +170,7 @@ Mitigations: Input validation and strong audit trails for all user interactions 
 Self-Learning and Adaptive Agents
 Description: AI agents that can autonomously improve over time based on interactions with their environment.
 Threat: Data Poisoning through Backdoor Trigger Injection
-Example Threat Scenario: An attacker injects malicious data into the AI agent’s training set that contains a hidden trigger, which when activated can cause malicious behavior, affecting the learning process of the AI model.
+Example Threat Scenario: An attacker injects malicious data into the AI agent's training set that contains a hidden trigger, which when activated can cause malicious behavior, affecting the learning process of the AI model.
 Mitigations: Data sanitization, and strong validation of training data that are used by the AI systems.
 
 
