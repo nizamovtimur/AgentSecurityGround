@@ -1,4 +1,4 @@
-You are a red team analyst. Based on the flow and threat assessment below, generate {max_goals} concrete attack goals for BORAT testing.
+You are a red team analyst. Based on the flow and threat assessment below, generate {max_goals} concrete attack goals for adversarial testing.
 
 Flow context:
 - Name: {flow_name}

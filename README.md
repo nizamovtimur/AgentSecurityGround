@@ -84,8 +84,8 @@ docker compose --env-file .env up -d --build
 
 1. **Static Workflow Analysis** — загрузка флоу по FLOW_ID, парсинг узлов/связей/промптов/активов
 2. **Attack Surface Modeling** — threat modeling (MAESTRO для публичной демо, корпоративная модель — через `THREAT_MODEL_PATH`)
-3. **BORAT Scenario Generation** — генерация целей атаки из ассесмента
-4. **Runtime Attack Execution** — BORAT на OpenAI (без LLAMATOR)
+3. **Scenario Generation** — генерация целей атаки из ассесмента
+4. **Runtime Attack Execution** — адверсарный мультиагент с обращением к LLM через OpenAI-compatible API
 5. **JSON Report** — описание флоу, ассесмент, вектор атаки, история, критичность (LOW/MEDIUM/HIGH/CRITICAL)
 
 ```bash
@@ -95,7 +95,7 @@ pip install -r mlsecops_agent/requirements.txt
 # Сканирование по FLOW_ID (Langflow API)
 python -m mlsecops_agent.main $FLOW_ID -o report.json
 
-# Анализ без BORAT (только threat modeling по локальному JSON)
+# Анализ без атаки (только threat modeling по локальному JSON)
 python -m mlsecops_agent.main dummy --flow-file langflow/flows/Windchaser.json -o report.json
 
 # Другой API (Ollama, локальный прокси)
@@ -106,17 +106,17 @@ python -m mlsecops_agent.main $FLOW_ID -o report.json
 
 Переменные окружения: `LANGFLOW_URL`, `LANGFLOW_API_KEY`, `OPENAI_API_KEY`, `OPENAI_API_BASE`, `APP_SEC_ATTACK_MODEL`, `APP_SEC_JUDGE_MODEL`.
 
-## Boss-Orchestrated Agentic Red-Teaming (BORAT)
+## Boss-Orchestrated Agentic Red-Teaming
 
 [[Блокнот](llamator/llamator-borat.ipynb)]
 
 [[Замеры ASR](llamator/asr_evaluation.ipynb)]
 
-**BORAT** (Boss-Orchestrated Agentic Red-Teaming) — методология агентного редтиминга, в которой стратегический агент (Boss) оркестрирует действия атакующего агента (Attacker) при тестировании мультиагентных диалоговых систем в условиях black-box. Метод реализован в рамках фреймворка [LLAMATOR](https://github.com/LLAMATOR-Core/llamator) и использует единую библиотеку стратегий совместно с AutoDAN-Turbo и CoP.
+**Boss-Orchestrated Agentic Red-Teaming** — методология агентного редтиминга, в которой стратегический агент (Boss) оркестрирует действия атакующего агента (Attacker) при тестировании мультиагентных диалоговых систем в условиях black-box. Метод реализован в рамках фреймворка [LLAMATOR](https://github.com/LLAMATOR-Core/llamator) и использует единую библиотеку стратегий совместно с AutoDAN-Turbo и CoP.
 
 ### 1. Сравнение методов jailbreak
 
-| Критерий | PAIR | AutoDAN-Turbo | CoP | BORAT |
+| Критерий | PAIR | AutoDAN-Turbo | CoP | Ours |
 | :-- | :-- | :-- | :-- | :-- |
 | **Архитектура** | Attacker генерирует prompt → Target отвечает → Attacker видит (P,R,S) и refinement в chat. Цикл до успеха или K итераций. | Attacker → Target → Scorer (1–10) → Summarizer извлекает стратегии из пар (P_i,R_i) vs (P_j,R_j) при S_j>S_i. Warm-up строит библиотеку, lifelong её пополняет. | Red-Teaming Agent: P_init (seed, обход Direct Refusal) → выбор принципов ⊕ → генерация prompt → Target → Judge (jailbreak + similarity). Итеративный refinement. | Boss (ReAct): выбор стратегии + guidance → Attacker (ReAct): генерация prompt → Target → Judge. Belief State обновляется каждый шаг. |
 | **Стратегии** | Нет библиотеки. Три системных промпта: role-playing, logical appeal, authority endorsement. Attacker свободно генерирует. | Пустая библиотека на старте. Summarizer сравнивает пары атак и формулирует стратегию (name, definition, example). Retrieval по embedding ответа. | 7 принципов: Generate, Expand, Shorten, Rephrase, Phrase Insertion, Style Change, Replace Words. Agent выбирает и комбинирует ⊕. | 5 начальных (ATTACK_STRATEGIES). Summarizer добавляет при успехе. Boss может выбрать композицию до 2 стратегий. |
@@ -125,9 +125,9 @@ python -m mlsecops_agent.main $FLOW_ID -o report.json
 | **Память** | Chat history (P,R,S) накапливается в диалоге, per-goal | Strategy library: key=embedding(R_i), value=(P_i,P_j,score_diff). Кросс-целевая. | — | Attack Memory (кросс-целевая, max 10) + Belief State (per-goal: observations, vulnerability_signals, resistance_patterns) |
 | **Ссылка** | [arXiv:2310.08419](https://arxiv.org/html/2310.08419v4) | [arXiv:2410.05295](https://arxiv.org/html/2410.05295v4) | [arXiv:2506.00781](https://arxiv.org/html/2506.00781v3) | — |
 
-**Отличие BORAT:** оркестрация через Boss (выбор стратегии + guidance), ReAct-рассуждение, Belief State и Attack Memory, целевая система — мультиагентная.
+**Отличие разработанного метода:** оркестрация через Boss (выбор стратегии + guidance), ReAct-рассуждение, Belief State и Attack Memory, целевая система — мультиагентная.
 
-### 2. Идея BORAT
+### 2. Идея адверсарного мультиагента
 
 Три механизма: (1) **ReAct** — Boss и Attacker явно рассуждают (Thought → Action); (2) **Boss** — выбирает стратегию, даёт guidance и criticism, не пишет промпты; (3) **Attack Memory** — кросс-целевое хранилище успешных атак.
 

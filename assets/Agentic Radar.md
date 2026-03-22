@@ -72,7 +72,7 @@ Agentic Radar introduces architecture-aware analysis of agent workflows.
 However, its runtime attack generation capabilities remain limited.
 
 Our framework extends this idea by introducing structured adversarial
-scenario generation (BORAT) and systematic evaluation of agent responses.
+scenario generation and systematic evaluation of agent responses.
 ```
 
 # Модуль AppSec-платформы для сканирования агентных сценариев
@@ -91,7 +91,7 @@ scenario generation (BORAT) and systematic evaluation of agent responses.
                   │
                   ▼
         ┌────────────────────┐
-        │ BORAT Scenario     │
+        │ Attack Scenario    │
         │ Generation         │
         └─────────┬──────────┘
                   │
@@ -162,10 +162,6 @@ edges:
 
 ## Модуль 3 — Automatic Attack Generation
 
-Сейчас BORAT = predefined attack.
-
-Но можно сделать:
-
 ```
 tool type
    ↓
@@ -197,7 +193,7 @@ RCE payload
 tool abuse
 ```
 
-Это превращает BORAT в:
+Это превращает адверсарного мультиагента в:
 
 **context-aware attack generator**.
 

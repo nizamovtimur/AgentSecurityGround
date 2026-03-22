@@ -1,7 +1,7 @@
 """
 Конфигурация модуля из переменных окружения.
 
-- APP_SEC_ATTACK_MODEL — модель для Boss и Attacker (BORAT)
+- APP_SEC_ATTACK_MODEL — модель для Boss и Attacker
 - APP_SEC_JUDGE_MODEL — модель для Judge
 - OPENAI_API_BASE — OpenAI-compatible API base URL (например https://api.openai.com/v1)
 """

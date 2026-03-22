@@ -28,7 +28,7 @@ def run_scan(flow_id, output_path=None, langflow_url=None, langflow_api_key=None
     2. Анализ узлов/связей/активов
     3. Threat modeling (MAESTRO)
     4. Генерация целей атаки
-    5. BORAT (Boss → Attacker → Target → Judge)
+    5. Адверсарный мультиагент (Boss → Attacker → Target → Judge)
     6. JSON-отчёт
 
     Модели и API: APP_SEC_ATTACK_MODEL, APP_SEC_JUDGE_MODEL, OPENAI_API_BASE.
@@ -39,7 +39,7 @@ def run_scan(flow_id, output_path=None, langflow_url=None, langflow_api_key=None
         langflow_url: URL Langflow (по умолчанию LANGFLOW_URL)
         langflow_api_key: API ключ (LANGFLOW_API_KEY)
         openai_api_key: OpenAI API ключ
-        flow_file: Локальный JSON флоу (для анализа без API; BORAT пропускается)
+        flow_file: Локальный JSON флоу (для анализа без API; адверсарный мультиагент пропускается)
         artifacts_path: Директория для артефактов и логов
         debug_level: 0=WARNING, 1=INFO, 2=DEBUG
 
@@ -112,10 +112,10 @@ def run_scan(flow_id, output_path=None, langflow_url=None, langflow_api_key=None
     log.info("Goals: %d", len(goal_strings))
     print("     Целей: {}".format(len(goal_strings)), flush=True)
 
-    # 5. BORAT (только если есть API для run — иначе пропускаем)
+    # 5. Адверсарный мультиагент (только если есть API для run — иначе пропускаем)
     borat_results = []
     if not flow_file and (langflow_api_key or os.environ.get("LANGFLOW_API_KEY")):
-        print("[5/6] BORAT — проведение атак...", flush=True)
+        print("[5/6] Адверсарный мультиагент — проведение атак...", flush=True)
         model_description = "{} {}. Граф: {}".format(
             analysis.name, analysis.description or "", analysis.graph_summary or ""
         )[:500]
@@ -127,10 +127,10 @@ def run_scan(flow_id, output_path=None, langflow_url=None, langflow_api_key=None
             max_steps_per_goal=3,
         )
         broken = sum(1 for r in borat_results if r.is_broken)
-        log.info("BORAT complete: %d/%d broken", broken, len(borat_results))
+        log.info("Attack complete: %d/%d broken", broken, len(borat_results))
         print("     Результат: {} сломано / {} целей".format(broken, len(borat_results)), flush=True)
     else:
-        print("[5/6] BORAT пропущен (нет API или flow_file)", flush=True)
+        print("[5/6] Адверсарный мультиагент пропущен (нет API или flow_file)", flush=True)
 
     print("[6/6] Формирование отчёта...", flush=True)
 

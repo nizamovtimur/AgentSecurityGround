@@ -22,7 +22,7 @@ def load_prompt(name, **kwargs):
     Файлы ищутся в mlsecops_agent/prompts/.
 
     Args:
-        name: Имя файла (например, "borat_boss.txt", "goal_generator.txt")
+        name: Имя файла (например, "boss.txt", "goal_generator.txt")
         **kwargs: Значения для подстановки {placeholder} в тексте
 
     Returns:
@@ -49,7 +49,7 @@ def load_threat_model():
 
 def load_attack_strategies(path=None):
     """
-    Загружает библиотеку стратегий атаки BORAT из JSON.
+    Загружает библиотеку стратегий атаки из JSON.
 
     Формат: [{"strategy": "Name", "definition": "..."}, ...]
     Используется Boss и Attacker для выбора и применения стратегий.

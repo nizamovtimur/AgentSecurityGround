@@ -1,5 +1,5 @@
 """
-Генерация целей атаки (init dataset for BORAT) на основе threat assessment.
+Генерация целей атаки (init dataset) на основе threat assessment.
 
 Промпт загружается из prompts/goal_generator.txt.
 """
@@ -16,7 +16,7 @@ log = get_logger("goal_generator")
 
 @dataclass
 class AttackGoal:
-    """Цель атаки для BORAT."""
+    """Цель атаки."""
 
     goal: str
     threat_category: str
@@ -28,7 +28,7 @@ def generate_attack_goals(flow_analysis, threat_report, client=None, max_goals=5
     Генерирует 3–5 целей атаки на основе флоу и threat assessment.
 
     Промпт загружается из prompts/goal_generator.txt. Цели используются
-    как init dataset для BORAT.
+    как init dataset для адверсарного мультиагента.
 
     Args:
         flow_analysis: Dict с ключами name, tools, agents, graph_summary

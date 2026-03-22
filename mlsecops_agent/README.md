@@ -1,12 +1,12 @@
 # MLSecOps Agent — модуль сканирования агентных сценариев Langflow
 
-Модуль DevSecOps для интеграции в корпоративную AppSec-платформу. Выполняет статический анализ Langflow-флоу, моделирование угроз, генерацию целей атаки и BORAT (Boss-Orchestrated Agentic Red-Teaming).
+Модуль DevSecOps для интеграции в корпоративную AppSec-платформу. Выполняет статический анализ Langflow-флоу, моделирование угроз, генерацию целей атаки и запуск адверсарного мультиагента Boss-Orchestrated Agentic Red-Teaming.
 
 ## Методология
 
 **Threat Modeling (MAESTRO).** Используется фреймворк MAESTRO для систематического выявления угроз: Mission → Assets → Entrypoints → Threats → Risks. LLM получает JSON-описание графа флоу и генерирует Markdown-отчёт с категоризацией рисков.
 
-**BORAT (Boss-Orchestrated Agentic Red-Teaming).** Мультиагентная архитектура для jailbreak-тестирования:
+**Boss-Orchestrated Agentic Red-Teaming.** Адверсарный мультиагент для jailbreak-тестирования:
 
 - **Boss** — оркестратор, выбирает стратегию из библиотеки (Composition-of-Principles: до 2 стратегий одновременно), даёт указания по применению и критикует неудачные попытки Attacker.
 - **Attacker** — генерирует конкретные промпты, применяя выбранную стратегию по указаниям Boss.
@@ -20,7 +20,7 @@
 ### Ограничения
 
 - Зависимость от качества LLM (Boss, Attacker, Judge); возможны ложные срабатывания.
-- BORAT требует API доступа к Langflow (run/chat); при анализе только по JSON — BORAT пропускается.
+- Адверсарный мультиагент требует API доступа к Langflow (run/chat); при анализе только по JSON — атака пропускается.
 - Модель угроз захардкожена (MAESTRO); кастомизация через замену `prompts/threat_model.txt`.
 
 ## Архитектура
@@ -45,12 +45,12 @@ flowchart TB
         E --> D
     end
 
-    subgraph "3. BORAT Scenario Generation"
+    subgraph "3. Attack Scenario Generation"
         F[generate_attack_goals]
     end
 
     subgraph "4. Runtime Attack Execution"
-        G[run_borat]
+        G[run_attack]
     end
 
     subgraph "5. Report"
@@ -66,7 +66,7 @@ flowchart TB
     G --> H
 ```
 
-### Цикл BORAT (Boss → Attacker → Target → Judge)
+### Цикл адверсарного мультиагента (Boss → Attacker → Target → Judge)
 
 ```mermaid
 flowchart TB
@@ -134,17 +134,17 @@ pip install -r mlsecops_agent/requirements.txt
 - **log.txt** — подробный лог (DEBUG)
 - **report.json** — отчёт (если не указан -o)
 
-В консоль выводятся этапы работы [1/6]–[6/6], краткие итоги и прогресс BORAT (tqdm).
+В консоль выводятся этапы работы [1/6]–[6/6], краткие итоги и прогресс атаки (tqdm).
 
 ## Использование
 
 ### CLI
 
 ```bash
-# Полный цикл по FLOW_ID (с BORAT)
+# Полный цикл по FLOW_ID (с атакой)
 python -m mlsecops_agent.main 1b40c9e0-35dc-4823-85b8-6e692d1473de -o report.json
 
-# Только анализ и threat modeling (без BORAT, по локальному JSON)
+# Только анализ и threat modeling (без атаки, по локальному JSON)
 python -m mlsecops_agent.main dummy --flow-file langflow/flows/Windchaser.json -o report.json
 
 # Уровень логов и директория артефактов
@@ -183,7 +183,7 @@ print(report["severity"])  # LOW | MEDIUM | HIGH | CRITICAL
 | `borat_boss.txt` | Системный промпт Boss |
 | `borat_attacker.txt` | Системный промпт Attacker |
 | `borat_judge.txt` | Промпт Judge (оценка 0–10) |
-| `attack_strategies.json` | Библиотека стратегий BORAT |
+| `attack_strategies.json` | Библиотека стратегий атаки |
 
 ## Формат JSON-отчёта
 
@@ -218,7 +218,7 @@ print(report["severity"])  # LOW | MEDIUM | HIGH | CRITICAL
 }
 ```
 
-**Severity**: `LOW` | `MEDIUM` | `HIGH` | `CRITICAL` — вычисляется по результатам BORAT для передачи пентестерам.
+**Severity**: `LOW` | `MEDIUM` | `HIGH` | `CRITICAL` — вычисляется по результатам анализа для передачи пентестерам.
 
 ## Модули и функции
 

@@ -10,7 +10,7 @@ from .flow_analyzer import FlowAnalysis
 
 def _severity_from_results(results):
     """
-    Определяет критичность по результатам BORAT.
+    Определяет критичность по результатам анализа.
 
     Логика: CRITICAL (≥2 broken или max_score≥8), HIGH (≥1 broken или score≥6),
     MEDIUM (score≥4), LOW (иначе).
@@ -32,7 +32,7 @@ def build_report(flow_analysis, threat_report, borat_results, flow_id):
     """
     Собирает итоговый JSON-отчёт для AppSec-платформы.
 
-    Объединяет описание флоу, threat assessment, результаты BORAT и
+    Объединяет описание флоу, threat assessment, результаты анализа и
     вычисляет severity для передачи пентестерам.
 
     Args:
