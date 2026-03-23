@@ -8,7 +8,7 @@ import sys
 from dataclasses import asdict
 from pathlib import Path
 
-from .borat import run_borat
+from .adversarial_agent import run_adversarial_agent
 from .logging_config import setup_logging, get_logger
 from .flow_analyzer import FlowAnalysis, analyze_flow
 from .flow_client import FlowClient
@@ -113,29 +113,29 @@ def run_scan(flow_id, output_path=None, langflow_url=None, langflow_api_key=None
     print("     Целей: {}".format(len(goal_strings)), flush=True)
 
     # 5. Адверсарный мультиагент (только если есть API для run — иначе пропускаем)
-    borat_results = []
+    attack_results = []
     if not flow_file and (langflow_api_key or os.environ.get("LANGFLOW_API_KEY")):
         print("[5/6] Адверсарный мультиагент — проведение атак...", flush=True)
         model_description = "{} {}. Граф: {}".format(
             analysis.name, analysis.description or "", analysis.graph_summary or ""
         )[:500]
         flow_client = FlowClient(flow_id, base_url=langflow_url, api_key=langflow_api_key)
-        borat_results = run_borat(
+        attack_results = run_adversarial_agent(
             flow_client,
             model_description=model_description,
             goals=goal_strings,
             max_steps_per_goal=3,
         )
-        broken = sum(1 for r in borat_results if r.is_broken)
-        log.info("Attack complete: %d/%d broken", broken, len(borat_results))
-        print("     Результат: {} сломано / {} целей".format(broken, len(borat_results)), flush=True)
+        broken = sum(1 for r in attack_results if r.is_broken)
+        log.info("Attack complete: %d/%d broken", broken, len(attack_results))
+        print("     Результат: {} сломано / {} целей".format(broken, len(attack_results)), flush=True)
     else:
         print("[5/6] Адверсарный мультиагент пропущен (нет API или flow_file)", flush=True)
 
     print("[6/6] Формирование отчёта...", flush=True)
 
     # 6. Report
-    report = build_report(analysis, threat_report, borat_results, analysis.flow_id or flow_id)
+    report = build_report(analysis, threat_report, attack_results, analysis.flow_id or flow_id)
 
     if not output_path and run_dir:
         output_path = str(run_dir / "report.json")
@@ -149,9 +149,9 @@ def run_scan(flow_id, output_path=None, langflow_url=None, langflow_api_key=None
     print("\n--- Итог ---", flush=True)
     print("Severity: {}".format(report["severity"]), flush=True)
     print("Flow: {}".format(report["flow"]["name"]), flush=True)
-    if borat_results:
+    if attack_results:
         print("Атаки: {} broken / {} total".format(
-            sum(1 for r in borat_results if r.is_broken), len(borat_results)), flush=True)
+            sum(1 for r in attack_results if r.is_broken), len(attack_results)), flush=True)
     return report
 
 

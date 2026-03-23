@@ -21,7 +21,7 @@ class FlowClient:
             raise ValueError("flow_id cannot be empty")
         url = base_url or os.environ.get("LANGFLOW_URL", "http://localhost:7860")
         self.base_url = str(url).rstrip("/") if url else "http://localhost:7860"
-        self.api_key = api_key or os.environ.get("LANGFLOW_API_KEY") or os.environ.get("LANGFLOW_TESTING_API")
+        self.api_key = api_key or os.environ.get("LANGFLOW_API_KEY")
         self.session_id = None
 
     def chat(self, message, session_id=None):
@@ -44,7 +44,7 @@ class FlowClient:
             httpx.HTTPStatusError: при ошибке HTTP
         """
         if not self.api_key:
-            raise ValueError("LANGFLOW_API_KEY or LANGFLOW_TESTING_API must be set")
+            raise ValueError("LANGFLOW_API_KEY must be set")
         message = str(message) if message is not None else ""
 
         sid = session_id or self.session_id or str(uuid.uuid4())

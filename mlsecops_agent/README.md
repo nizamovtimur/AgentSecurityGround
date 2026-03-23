@@ -121,7 +121,6 @@ pip install -r mlsecops_agent/requirements.txt
 |------------|----------|--------------|
 | `LANGFLOW_URL` | URL Langflow | `http://localhost:7860` |
 | `LANGFLOW_API_KEY` | API ключ Langflow | — |
-| `LANGFLOW_TESTING_API` | Альтернативный API ключ | — |
 | `OPENAI_API_KEY` | Ключ OpenAI (Boss, Attacker, Judge) | — |
 | `OPENAI_API_BASE` | OpenAI-compatible API base URL | пусто — стандартный OpenAI |
 | `APP_SEC_ATTACK_MODEL` | Модель для Boss и Attacker | `gpt-4o-mini` |
@@ -181,9 +180,9 @@ print(report["severity"])  # LOW | MEDIUM | HIGH | CRITICAL
 | `threat_model_system.txt` | Системный промпт для threat modeling (плейсхолдеры `<THREAT_MODEL>`, `<JSON>`) |
 | `threat_model.txt` | фреймворк MAESTRO — для публичной демонстрации |
 | `goal_generator.txt` | Генерация целей атаки |
-| `borat_boss.txt` | Системный промпт Boss |
-| `borat_attacker.txt` | Системный промпт Attacker |
-| `borat_judge.txt` | Промпт Judge (оценка 0–10) |
+| `boss.txt` | Системный промпт Boss |
+| `attacker.txt` | Системный промпт Attacker |
+| `judge.txt` | Промпт Judge (оценка 0–10) |
 | `attack_strategies.json` | Библиотека стратегий атаки |
 
 ## Формат JSON-отчёта
@@ -230,8 +229,8 @@ print(report["severity"])  # LOW | MEDIUM | HIGH | CRITICAL
 | `threat_modeling` | `run_threat_modeling(flow_analysis, threat_model_path=...)` |
 | `goal_generator` | `generate_attack_goals(flow_analysis, threat_report)` |
 | `flow_client` | `FlowClient(flow_id).chat(message)` |
-| `borat` | `run_borat(flow_client, model_description, goals)` |
-| `report` | `build_report(flow_analysis, threat_report, borat_results, flow_id)` |
+| `adversarial_agent` | `run_adversarial_agent(flow_client, model_description, goals)` |
+| `report` | `build_report(flow_analysis, threat_report, attack_results, flow_id)` |
 | `main` | `run_scan(flow_id, ...)` |
 
 ## Интеграция с AppSec-платформой

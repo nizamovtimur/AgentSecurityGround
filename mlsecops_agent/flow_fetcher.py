@@ -55,7 +55,7 @@ def fetch_flow(
     Args:
         flow_id: UUID флоу в Langflow
         base_url: URL Langflow (по умолчанию LANGFLOW_URL или http://localhost:7860)
-        api_key: API ключ. Берётся из LANGFLOW_API_KEY или LANGFLOW_TESTING_API
+        api_key: API ключ. Берётся из LANGFLOW_API_KEY
 
     Returns:
         dict с полями: id, name, description, data (nodes, edges), ...
@@ -65,10 +65,10 @@ def fetch_flow(
         httpx.HTTPStatusError: при ошибке HTTP (404, 401, etc.)
     """
     url = (base_url or os.environ.get("LANGFLOW_URL", "http://localhost:7860")).rstrip("/")
-    key = api_key or os.environ.get("LANGFLOW_API_KEY") or os.environ.get("LANGFLOW_TESTING_API")
+    key = api_key or os.environ.get("LANGFLOW_API_KEY")
 
     if not key:
-        raise ValueError("LANGFLOW_API_KEY or LANGFLOW_TESTING_API must be set")
+        raise ValueError("LANGFLOW_API_KEY must be set")
     flow_id = str(flow_id).strip()
     if not flow_id:
         raise ValueError("flow_id cannot be empty")

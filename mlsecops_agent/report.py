@@ -4,7 +4,7 @@
 
 from dataclasses import asdict
 
-from .borat import BoratResult
+from .adversarial_agent import AttackResult
 from .flow_analyzer import FlowAnalysis
 
 
@@ -28,7 +28,7 @@ def _severity_from_results(results):
     return "LOW"
 
 
-def build_report(flow_analysis, threat_report, borat_results, flow_id):
+def build_report(flow_analysis, threat_report, attack_results, flow_id):
     """
     Собирает итоговый JSON-отчёт для AppSec-платформы.
 
@@ -38,7 +38,7 @@ def build_report(flow_analysis, threat_report, borat_results, flow_id):
     Args:
         flow_analysis: Результат analyze_flow
         threat_report: Markdown-отчёт threat modeling
-        borat_results: Результаты run_borat (может быть пустым при --flow-file)
+        attack_results: Результаты run_adversarial_agent (может быть пустым при --flow-file)
         flow_id: UUID флоу
 
     Returns:
@@ -51,7 +51,7 @@ def build_report(flow_analysis, threat_report, borat_results, flow_id):
     """
     if not flow_analysis:
         raise ValueError("flow_analysis is required")
-    borat_results = borat_results or []
+    attack_results = attack_results or []
     flow_dict = {
         "flow_id": flow_id,
         "name": flow_analysis.name,
@@ -66,9 +66,9 @@ def build_report(flow_analysis, threat_report, borat_results, flow_id):
         "entrypoints": flow_analysis.entrypoints,
     }
 
-    attack_results = []
-    for r in borat_results:
-        attack_results.append({
+    final_results = []
+    for r in attack_results:
+        final_results.append({
             "goal": r.goal,
             "is_broken": r.is_broken,
             "judge_score": r.judge_score,
@@ -81,11 +81,11 @@ def build_report(flow_analysis, threat_report, borat_results, flow_id):
             },
         })
 
-    severity = _severity_from_results(borat_results)
+    severity = _severity_from_results(attack_results)
 
     return {
         "flow": flow_dict,
         "threat_assessment": threat_report,
-        "attack_results": attack_results,
+        "attack_results": final_results,
         "severity": severity,
     }
