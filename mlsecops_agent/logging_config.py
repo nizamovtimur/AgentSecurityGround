@@ -12,17 +12,17 @@ def setup_logging(artifacts_path=None, debug_level=1):
     """
     Настраивает логирование: консоль (INFO) + файл (DEBUG) в run-директории.
 
-    Создаёт ./artifacts/MLSEOPS_run_YYYY-MM-DD_HH-MM-SS/ и log.txt.
+    Создаёт ./artifacts/MLSECOPS_run_YYYY-MM-DD_HH-MM-SS/ и log.txt.
 
     Args:
         artifacts_path: Базовая директория (по умолчанию ./artifacts)
         debug_level: 0=WARNING, 1=INFO, 2=DEBUG
 
     Returns:
-        Path к run-директории (artifacts_path/MLSEOPS_run_...)
+        Path к run-директории (artifacts_path/MLSECOPS_run_...)
     """
-    base = Path(artifacts_path or os.environ.get("MLSEOPS_ARTIFACTS_PATH", "./artifacts"))
-    run_name = "MLSEOPS_run_{}".format(datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    base = Path(artifacts_path or os.environ.get("MLSECOPS_ARTIFACTS_PATH", "./artifacts"))
+    run_name = "MLSECOPS_run_{}".format(datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
     run_dir = base / run_name
     run_dir.mkdir(parents=True, exist_ok=True)
 

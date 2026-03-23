@@ -2,8 +2,8 @@ FROM langflowai/langflow:1.8.0
 
 WORKDIR /app
 
-COPY requirements.txt .
-RUN python3 -m ensurepip && python -m pip install --no-cache-dir -r requirements.txt
+# COPY requirements.txt .
+# RUN python3 -m ensurepip && python -m pip install --no-cache-dir -r requirements.txt
 
 RUN mkdir /app/flows
 COPY flows /app/flows

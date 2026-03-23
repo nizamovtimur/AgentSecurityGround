@@ -165,7 +165,7 @@ def main():
     parser.add_argument("--langflow-url", default=os.environ.get("LANGFLOW_URL"), help="URL Langflow")
     parser.add_argument("--langflow-api-key", default=os.environ.get("LANGFLOW_API_KEY"), help="API key Langflow")
     parser.add_argument("--openai-api-key", default=os.environ.get("OPENAI_API_KEY"), help="OpenAI API key")
-    parser.add_argument("--artifacts-path", default=os.environ.get("MLSEOPS_ARTIFACTS_PATH", "./artifacts"),
+    parser.add_argument("--artifacts-path", default=os.environ.get("MLSECOPS_ARTIFACTS_PATH", "./artifacts"),
                         help="Директория для артефактов и логов")
     parser.add_argument("--debug-level", type=int, default=1, choices=[0, 1, 2],
                         help="Уровень логов: 0=WARNING, 1=INFO, 2=DEBUG")

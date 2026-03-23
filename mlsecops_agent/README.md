@@ -126,11 +126,11 @@ pip install -r mlsecops_agent/requirements.txt
 | `OPENAI_API_BASE` | OpenAI-compatible API base URL | пусто — стандартный OpenAI |
 | `APP_SEC_ATTACK_MODEL` | Модель для Boss и Attacker | `gpt-4o-mini` |
 | `APP_SEC_JUDGE_MODEL` | Модель для Judge | `gpt-4o-mini` |
-| `MLSEOPS_ARTIFACTS_PATH` | Директория для артефактов и логов | `./artifacts` |
+| `MLSECOPS_ARTIFACTS_PATH` | Директория для артефактов и логов | `./artifacts` |
 
 ## Логирование
 
-При каждом запуске создаётся директория `./artifacts/MLSEOPS_run_YYYY-MM-DD_HH-MM-SS/`:
+При каждом запуске создаётся директория `./artifacts/MLSECOPS_run_YYYY-MM-DD_HH-MM-SS/`:
 - **log.txt** — подробный лог (DEBUG)
 - **report.json** — отчёт (если не указан -o)
 
@@ -150,10 +150,11 @@ python -m mlsecops_agent.main dummy --flow-file langflow/flows/Windchaser.json -
 # Уровень логов и директория артефактов
 python -m mlsecops_agent.main $FLOW_ID --artifacts-path ./my_artifacts --debug-level 2
 
-# Использование другого API (например, локальный Ollama)
-export OPENAI_API_BASE=http://localhost:11434/v1
-export APP_SEC_ATTACK_MODEL=llama3.2
-export APP_SEC_JUDGE_MODEL=llama3.2
+# Использование другого OpenAI-compatible API
+export OPENAI_API_BASE=http://localhost:1234/v1
+export OPENAI_API_KEY=AAA
+export APP_SEC_ATTACK_MODEL=google/gemma-3-12b
+export APP_SEC_JUDGE_MODEL=google/gemma-3-12b
 python -m mlsecops_agent.main $FLOW_ID -o report.json
 ```
 
