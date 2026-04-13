@@ -136,11 +136,11 @@ Boss:   THOUGHT → SELECTED STRATEGY → ACTION (guidance + criticism)
 Attacker: THOUGHT (strategy + guidance + goal) → ACTION (>>>ATTACK...<<<ATTACK)
 ```
 
-**Гипотеза:** ReAct + доменный контекст (`model_description`) + lifelong memory повышают ASR на мультиагентных целях при фиксированном бюджете шагов.
+**Гипотеза:** ReAct + доменный контекст (`model_description`) + lifelong memory повышают ASR на мультиагентных целях при фиксированном количестве шагов.
 
 ### 3. Постановка задачи
 
-Дано: Target \( \mathcal{T} \), цели \( \mathcal{G} \), библиотека \( \mathcal{S} \), бюджет \( K \). Цель: максимизировать ASR при black-box доступе.
+Дано: Target \( \mathcal{T} \), цели \( \mathcal{G} \), библиотека \( \mathcal{S} \), количество шагов \( K \). Цель: максимизировать ASR при black-box доступе.
 
 ### 4. Алгоритм
 

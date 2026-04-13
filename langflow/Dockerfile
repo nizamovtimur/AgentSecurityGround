@@ -1,4 +1,4 @@
-FROM langflowai/langflow:1.8.0
+FROM langflowai/langflow:1.8.3
 
 WORKDIR /app
 
