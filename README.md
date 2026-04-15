@@ -50,13 +50,13 @@ docker compose --env-file .env up -d --build
       Телефон: +79992220227 \
       Пожелания: хочу кататься на кайте цвета индиго
 
-### LLAMATOR
+### Автоматизация атак: AI Red Team tool LLAMATOR
 
 [[Блокнот](llamator/llamator.ipynb)]
 
 * Composition of Principles
 * Past Tense
-* Repeat token DOS
+* Repeat token DOS как кастомная атака
 
 ### Защитные механизмы
 
@@ -72,6 +72,13 @@ docker compose --env-file .env up -d --build
   * агент-критик
 * на выход:
   * гардрейл на топики+пдн
+
+### Мониторинг, логирование, трассировка: Langfuse
+
+1. Зайти на http://localhost:3000/
+2. Получить `LANGFUSE_SECRET_KEY` и `LANGFUSE_PUBLIC_KEY` – указать в `.env`
+3. Перезапустить контейнеры
+4. Наслаждаться красивыми графиками
 
 ## Модуль MLSecOps для сканирования Langflow-сценариев
 
