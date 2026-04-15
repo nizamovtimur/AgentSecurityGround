@@ -29,7 +29,7 @@ def setup_logging(artifacts_path=None, debug_level=1):
     log_file = run_dir / "log.txt"
     level = [logging.WARNING, logging.INFO, logging.DEBUG][min(debug_level, 2)]
 
-    root = logging.getLogger("mlsecops_agent")
+    root = logging.getLogger("mlsecops-agent")
     root.setLevel(logging.DEBUG)
     for h in list(root.handlers):
         root.removeHandler(h)
@@ -51,7 +51,7 @@ def setup_logging(artifacts_path=None, debug_level=1):
 
 def get_run_dir():
     """Возвращает текущую run-директорию (если настроена) или None."""
-    root = logging.getLogger("mlsecops_agent")
+    root = logging.getLogger("mlsecops-agent")
     for h in root.handlers:
         if isinstance(h, logging.FileHandler) and hasattr(h, "baseFilename"):
             return str(Path(h.baseFilename).parent)
@@ -60,4 +60,4 @@ def get_run_dir():
 
 def get_logger(name):
     """Возвращает логгер для модуля."""
-    return logging.getLogger("mlsecops_agent.{}".format(name) if name else "mlsecops_agent")
+    return logging.getLogger("mlsecops-agent.{}".format(name) if name else "mlsecops-agent")

@@ -5,7 +5,7 @@
 import logging
 from dataclasses import dataclass, field
 
-log = logging.getLogger("mlsecops_agent.flow_analyzer")
+log = logging.getLogger("mlsecops-agent.flow_analyzer")
 from typing import Any, Dict, List
 
 

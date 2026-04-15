@@ -10,7 +10,7 @@ from typing import Any, Optional
 
 import httpx
 
-log = logging.getLogger("mlsecops_agent.flow_fetcher")
+log = logging.getLogger("mlsecops-agent.flow_fetcher")
 
 
 def fetch_flow_from_file(path):

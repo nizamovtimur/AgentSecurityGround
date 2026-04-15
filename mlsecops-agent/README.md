@@ -112,7 +112,7 @@ flowchart TB
 ## Установка
 
 ```bash
-pip install -r mlsecops_agent/requirements.txt
+pip install -r mlsecops-agent/requirements.txt
 ```
 
 ## Переменные окружения
@@ -141,26 +141,26 @@ pip install -r mlsecops_agent/requirements.txt
 
 ```bash
 # Полный цикл по FLOW_ID (с атакой)
-python -m mlsecops_agent.main 1b40c9e0-35dc-4823-85b8-6e692d1473de -o report.json
+python -m mlsecops-agent.main 1b40c9e0-35dc-4823-85b8-6e692d1473de -o report.json
 
 # Только анализ и threat modeling (без атаки, по локальному JSON)
-python -m mlsecops_agent.main dummy --flow-file langflow/flows/Windchaser.json -o report.json
+python -m mlsecops-agent.main dummy --flow-file langflow/flows/Windchaser.json -o report.json
 
 # Уровень логов и директория артефактов
-python -m mlsecops_agent.main $FLOW_ID --artifacts-path ./my_artifacts --debug-level 2
+python -m mlsecops-agent.main $FLOW_ID --artifacts-path ./my_artifacts --debug-level 2
 
 # Использование другого OpenAI-compatible API
 export OPENAI_API_BASE=http://localhost:1234/v1
 export OPENAI_API_KEY=AAA
 export APP_SEC_ATTACK_MODEL=google/gemma-3-12b
 export APP_SEC_JUDGE_MODEL=google/gemma-3-12b
-python -m mlsecops_agent.main $FLOW_ID -o report.json
+python -m mlsecops-agent.main $FLOW_ID -o report.json
 ```
 
 ### Программный вызов
 
 ```python
-from mlsecops_agent.main import run_scan
+from mlsecops-agent.main import run_scan
 
 report = run_scan(
     flow_id="1b40c9e0-35dc-4823-85b8-6e692d1473de",
@@ -173,7 +173,7 @@ print(report["severity"])  # LOW | MEDIUM | HIGH | CRITICAL
 
 ## Промпты и модель угроз
 
-Все промпты вынесены в `mlsecops_agent/prompts/`. Модель угроз захардкожена: MAESTRO.
+Все промпты вынесены в `mlsecops-agent/prompts/`. Модель угроз захардкожена: MAESTRO.
 
 | Файл | Назначение |
 |------|------------|

@@ -3,7 +3,7 @@ Boss-Orchestrated Agentic Red-Teaming — атакующий мультиаге�
 
 Boss → Attacker → Target (Langflow) → Judge → repeat
 
-Промпты загружаются из mlsecops_agent/prompts/.
+Промпты загружаются из mlsecops-agent/prompts/.
 Стратегии — из prompts/attack_strategies.json.
 """
 

@@ -1,7 +1,7 @@
 """
 Загрузчик промптов из файлов.
 
-Все промпты хранятся в mlsecops_agent/prompts/ для удобной замены и настройки.
+Все промпты хранятся в mlsecops-agent/prompts/ для удобной замены и настройки.
 Модель угроз: MAESTRO (prompts/threat_model.txt).
 """
 
@@ -10,7 +10,7 @@ from pathlib import Path
 
 
 def _prompts_dir():
-    """Возвращает путь к директории mlsecops_agent/prompts/."""
+    """Возвращает путь к директории mlsecops-agent/prompts/."""
     return Path(__file__).parent / "prompts"
 
 
@@ -19,7 +19,7 @@ def load_prompt(name, **kwargs):
     Загружает промпт из файла и подставляет плейсхолдеры.
 
     Плейсхолдеры в формате {key} заменяются на kwargs[key].
-    Файлы ищутся в mlsecops_agent/prompts/.
+    Файлы ищутся в mlsecops-agent/prompts/.
 
     Args:
         name: Имя файла (например, "boss.txt", "goal_generator.txt")

@@ -177,36 +177,6 @@
         "className": "",
         "data": {
           "sourceHandle": {
-            "dataType": "File",
-            "id": "File-VQbjJ",
-            "name": "dataframe",
-            "output_types": [
-              "DataFrame"
-            ]
-          },
-          "targetHandle": {
-            "fieldName": "data_inputs",
-            "id": "SplitText-lXqAr",
-            "inputTypes": [
-              "Data",
-              "DataFrame",
-              "Message"
-            ],
-            "type": "other"
-          }
-        },
-        "id": "xy-edge__File-VQbjJ{œdataTypeœ:œFileœ,œidœ:œFile-VQbjJœ,œnameœ:œdataframeœ,œoutput_typesœ:[œDataFrameœ]}-SplitText-lXqAr{œfieldNameœ:œdata_inputsœ,œidœ:œSplitText-lXqArœ,œinputTypesœ:[œDataœ,œDataFrameœ,œMessageœ],œtypeœ:œotherœ}",
-        "selected": false,
-        "source": "File-VQbjJ",
-        "sourceHandle": "{œdataTypeœ:œFileœ,œidœ:œFile-VQbjJœ,œnameœ:œdataframeœ,œoutput_typesœ:[œDataFrameœ]}",
-        "target": "SplitText-lXqAr",
-        "targetHandle": "{œfieldNameœ:œdata_inputsœ,œidœ:œSplitText-lXqArœ,œinputTypesœ:[œDataœ,œDataFrameœ,œMessageœ],œtypeœ:œotherœ}"
-      },
-      {
-        "animated": false,
-        "className": "",
-        "data": {
-          "sourceHandle": {
             "dataType": "OpenAIEmbeddings",
             "id": "OpenAIEmbeddings-ne2ng",
             "name": "embeddings",
@@ -288,6 +258,8 @@
         "targetHandle": "{œfieldNameœ:œtoolsœ,œidœ:œAgent-FMqaeœ,œinputTypesœ:[œToolœ],œtypeœ:œotherœ}"
       },
       {
+        "animated": false,
+        "className": "",
         "data": {
           "sourceHandle": {
             "dataType": "Prompt Template",
@@ -307,10 +279,41 @@
           }
         },
         "id": "xy-edge__Prompt Template-gOrls{œdataTypeœ:œPrompt Templateœ,œidœ:œPrompt Template-gOrlsœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}-Agent-FMqae{œfieldNameœ:œsystem_promptœ,œidœ:œAgent-FMqaeœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}",
+        "selected": false,
         "source": "Prompt Template-gOrls",
         "sourceHandle": "{œdataTypeœ:œPrompt Templateœ,œidœ:œPrompt Template-gOrlsœ,œnameœ:œpromptœ,œoutput_typesœ:[œMessageœ]}",
         "target": "Agent-FMqae",
         "targetHandle": "{œfieldNameœ:œsystem_promptœ,œidœ:œAgent-FMqaeœ,œinputTypesœ:[œMessageœ],œtypeœ:œstrœ}"
+      },
+      {
+        "animated": false,
+        "className": "",
+        "data": {
+          "sourceHandle": {
+            "dataType": "File",
+            "id": "File-VQbjJ",
+            "name": "dataframe",
+            "output_types": [
+              "DataFrame"
+            ]
+          },
+          "targetHandle": {
+            "fieldName": "data_inputs",
+            "id": "SplitText-lXqAr",
+            "inputTypes": [
+              "Data",
+              "DataFrame",
+              "Message"
+            ],
+            "type": "other"
+          }
+        },
+        "id": "xy-edge__File-VQbjJ{œdataTypeœ:œFileœ,œidœ:œFile-VQbjJœ,œnameœ:œdataframeœ,œoutput_typesœ:[œDataFrameœ]}-SplitText-lXqAr{œfieldNameœ:œdata_inputsœ,œidœ:œSplitText-lXqArœ,œinputTypesœ:[œDataœ,œDataFrameœ,œMessageœ],œtypeœ:œotherœ}",
+        "selected": false,
+        "source": "File-VQbjJ",
+        "sourceHandle": "{œdataTypeœ:œFileœ,œidœ:œFile-VQbjJœ,œnameœ:œdataframeœ,œoutput_typesœ:[œDataFrameœ]}",
+        "target": "SplitText-lXqAr",
+        "targetHandle": "{œfieldNameœ:œdata_inputsœ,œidœ:œSplitText-lXqArœ,œinputTypesœ:[œDataœ,œDataFrameœ,œMessageœ],œtypeœ:œotherœ}"
       }
     ],
     "nodes": [
@@ -401,7 +404,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "50f11dff-08fb-4fe6-b147-ccaa6b6e874e"
+                "value": "070182ae-18be-48ae-ba93-18a4fdb8cecd"
               },
               "_type": "Component",
               "api_key": {
@@ -1553,7 +1556,7 @@
           "width": 320
         },
         "position": {
-          "x": 4457.025143615504,
+          "x": 4110.445492662094,
           "y": 979.6904525976164
         },
         "selected": false,
@@ -1916,7 +1919,7 @@
               },
               "_frontend_node_folder_id": {
                 "input_types": [],
-                "value": "50f11dff-08fb-4fe6-b147-ccaa6b6e874e"
+                "value": "070182ae-18be-48ae-ba93-18a4fdb8cecd"
               },
               "_type": "Component",
               "add_current_date_tool": {
@@ -2594,7 +2597,7 @@
             ],
             "frozen": false,
             "icon": "Mcp",
-            "last_updated": "2026-04-11T10:44:14.370Z",
+            "last_updated": "2026-04-15T12:03:15.108Z",
             "legacy": false,
             "lf_version": "1.8.3",
             "metadata": {
@@ -2646,7 +2649,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "50f11dff-08fb-4fe6-b147-ccaa6b6e874e"
+                "value": "070182ae-18be-48ae-ba93-18a4fdb8cecd"
               },
               "_type": "Component",
               "code": {
@@ -2936,7 +2939,7 @@
             ],
             "frozen": false,
             "icon": "file-text",
-            "last_updated": "2026-04-11T10:50:18.644Z",
+            "last_updated": "2026-04-15T12:03:15.109Z",
             "legacy": false,
             "lf_version": "1.8.3",
             "metadata": {
@@ -2992,7 +2995,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "50f11dff-08fb-4fe6-b147-ccaa6b6e874e"
+                "value": "070182ae-18be-48ae-ba93-18a4fdb8cecd"
               },
               "_type": "Component",
               "advanced_mode": {
@@ -3427,10 +3430,10 @@
                   "gz"
                 ],
                 "file_path": [
-                  "fab050cd-c4c6-41b8-b008-356656774a95/preview_discovery_eng.pdf",
-                  "fab050cd-c4c6-41b8-b008-356656774a95/Kitesurfing-Mini-Guide.pdf",
-                  "fab050cd-c4c6-41b8-b008-356656774a95/kitesurf_training_plan.csv",
-                  "fab050cd-c4c6-41b8-b008-356656774a95/kitesurf_customers.csv"
+                  "b4cb1a65-3e50-4b17-9960-deda0e452aab/kitesurf_customers.csv",
+                  "b4cb1a65-3e50-4b17-9960-deda0e452aab/kitesurf_training_plan.csv",
+                  "b4cb1a65-3e50-4b17-9960-deda0e452aab/Kitesurfing-Mini-Guide.pdf",
+                  "b4cb1a65-3e50-4b17-9960-deda0e452aab/preview_discovery_eng.pdf"
                 ],
                 "info": "Supported file extensions: csv, json, pdf, txt, md, mdx, yaml, yml, xml, html, htm, docx, py, sh, sql, js, ts, tsx, adoc, asciidoc, asc, bmp, dotx, dotm, docm, jpg, jpeg, png, potx, ppsx, pptm, potm, ppsm, pptx, tiff, xls, xlsx, xhtml, webp; optionally bundled in file extensions: zip, tar, tgz, bz2, gz",
                 "list": true,
@@ -3636,8 +3639,8 @@
           "width": 320
         },
         "position": {
-          "x": 4077.0379991311956,
-          "y": 984.7866499729384
+          "x": 3730.4583481777854,
+          "y": 978.2474112757043
         },
         "selected": false,
         "type": "genericNode"
@@ -5857,7 +5860,7 @@
             ],
             "frozen": false,
             "icon": "Chroma",
-            "last_updated": "2026-04-11T10:55:30.115Z",
+            "last_updated": "2026-04-15T12:03:15.128Z",
             "legacy": false,
             "lf_version": "1.8.3",
             "metadata": {
@@ -5917,7 +5920,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "50f11dff-08fb-4fe6-b147-ccaa6b6e874e"
+                "value": "070182ae-18be-48ae-ba93-18a4fdb8cecd"
               },
               "_type": "Component",
               "allow_duplicates": {
@@ -6145,7 +6148,7 @@
                 "trace_as_metadata": true,
                 "track_in_telemetry": true,
                 "type": "int",
-                "value": 3
+                "value": 100
               },
               "number_of_results": {
                 "_input_type": "IntInput",
@@ -6344,9 +6347,9 @@
       }
     ],
     "viewport": {
-      "x": -2368.2220787294646,
-      "y": -634.6950169252416,
-      "zoom": 0.6221416887822556
+      "x": -1621.739598743296,
+      "y": -387.76452529693995,
+      "zoom": 0.45876900032245044
     }
   },
   "description": "",
