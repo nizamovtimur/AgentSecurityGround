@@ -80,34 +80,6 @@ docker compose --env-file .env up -d --build
 3. Перезапустить контейнеры
 4. Наслаждаться красивыми графиками
 
-## Модуль MLSecOps для сканирования Langflow-сценариев
-
-Модуль `mlsecops-agent` — DevSecOps-пайплайн для интеграции в корпоративную AppSec-платформу. Подробная документация: [mlsecops-agent/README.md](mlsecops-agent/README.md).
-
-1. **Static Workflow Analysis** — загрузка флоу по FLOW_ID, парсинг узлов/связей/промптов/активов
-2. **Attack Surface Modeling** — threat modeling (MAESTRO для публичной демо, корпоративная модель — через `THREAT_MODEL_PATH`)
-3. **Scenario Generation** — генерация целей атаки из ассесмента
-4. **Runtime Attack Execution** — адверсарный мультиагент с обращением к LLM через OpenAI-compatible API
-5. **JSON Report** — описание флоу, ассесмент, вектор атаки, история, критичность (LOW/MEDIUM/HIGH/CRITICAL)
-
-```bash
-# Установка
-pip install -r mlsecops-agent/requirements.txt
-
-# Сканирование по FLOW_ID (Langflow API)
-python -m mlsecops-agent.main $FLOW_ID -o report.json
-
-# Анализ без атаки (только threat modeling по локальному JSON)
-python -m mlsecops-agent.main dummy --flow-file langflow/flows/Windchaser.json -o report.json
-
-# Другой API (Ollama, локальный прокси)
-export OPENAI_API_BASE=http://localhost:11434/v1
-export APP_SEC_ATTACK_MODEL=llama3.2
-python -m mlsecops-agent.main $FLOW_ID -o report.json
-```
-
-Переменные окружения: `LANGFLOW_URL`, `LANGFLOW_API_KEY`, `OPENAI_API_KEY`, `OPENAI_API_BASE`, `APP_SEC_ATTACK_MODEL`, `APP_SEC_JUDGE_MODEL`.
-
 ## Boss-Orchestrated Agentic Red-Teaming
 
 [[Блокнот](llamator/llamator-borat.ipynb)]
@@ -138,62 +110,67 @@ Boss:   THOUGHT → SELECTED STRATEGY → ACTION (guidance + criticism)
 Attacker: THOUGHT (strategy + guidance + goal) → ACTION (>>>ATTACK...<<<ATTACK)
 ```
 
-**Гипотеза:** ReAct + доменный контекст (`model_description`) + lifelong memory повышают ASR на мультиагентных целях при фиксированном количестве шагов.
+**Гипотеза:** Boss + ReAct + доменный контекст (`model_description`) + lifelong memory повышают ASR на мультиагентных целях при фиксированном количестве шагов.
 
-### 3. Постановка задачи
-
-Дано: Target \( \mathcal{T} \), цели \( \mathcal{G} \), библиотека \( \mathcal{S} \), количество шагов \( K \). Цель: максимизировать ASR при black-box доступе.
-
-### 4. Алгоритм
-
-Цикл: Boss.think/act → Attacker.think/act → Target.execute → Judge.evaluate → BeliefState.update. При score ≥ 5: memory.add, update_library, stop.
-
-### 5. Схема
+### 3. Схема
 
 ```mermaid
-flowchart TB
-    subgraph "Strategy Library"
-        LIB[5 стратегий + strategy mining]
-    end
+sequenceDiagram
+    autonumber
 
-    subgraph "Boss Agent"
-        BOSS[ReAct: THOUGHT → SELECTED STRATEGY → ACTION]
-        BOSS_IN[Target desc, Goal, BeliefState, Memory]
-        BOSS_IN --> BOSS
-        LIB --> BOSS
-    end
+    participant DATA as Набор целей
+    participant LIB as Библиотека стратегий
+    participant BOSS as Управляющий агент
+    participant ATT as Атакующий агент
+    participant TGT as Целевая система
+    participant JUDGE as Агент-судья
+    participant SUM as LLM-суммаризатор
+    participant BEL as Состояние
+    participant MEM as Память атак
 
-    subgraph "Attacker Agent"
-        ATT[Применяет стратегию по указаниям Boss]
-        ATT_OUT[>>>ATTACK ... <<<ATTACK]
-        ATT --> ATT_OUT
-    end
+    DATA->>BOSS: Цель атаки G
+    BOSS->>BEL: Инициализация состояния
 
-    subgraph "Target"
-        TGT[Tested Agent<br/>chat/run API]
-    end
+    loop До N шагов
+        BOSS->>LIB: Получить стратегии
+        LIB-->>BOSS: Список стратегий
 
-    subgraph "Judge"
-        JUDGE[LLM-as-a-Judge<br/>Score 1–10]
-    end
+        BOSS->>MEM: Получить память атак
+        MEM-->>BOSS: Успешные примеры
 
-    subgraph "State"
-        BELIEF[BeliefState]
-        MEM[AttackMemory]
-    end
+        BOSS->>ATT: Директива + стратегия
+        ATT->>TGT: Атакующий запрос
 
-    BOSS -->|guidance + criticism| ATT
-    ATT_OUT --> TGT
-    TGT -->|response| JUDGE
-    JUDGE -->|score| BELIEF
-    BELIEF --> BOSS
-    MEM --> BOSS
-    JUDGE -.->|success: add to Memory| MEM
+        TGT->>JUDGE: Ответ системы
+        JUDGE->>BOSS: Score
+
+        BOSS->>BEL: Обновить состояние
+
+        alt Score >= 5
+            BOSS->>MEM: Сохранить успешную атаку
+
+            BOSS->>SUM: Описание успешной атаки
+            SUM->>BOSS: Новая стратегия
+
+            BOSS->>LIB: Добавить стратегию
+            LIB->>LIB: Обновить эффективность
+
+            LIB->>LIB: Policy update (пересчёт и отбор лучших)
+
+        else Score < 5
+            BOSS->>BOSS: Коррекция стратегии
+        end
+
+    end
 ```
 
-**Belief State** — per-goal модель поведения целевой системы (observations, vulnerability_signals, resistance_patterns, strategy_outcomes). **Attack Memory** — кросс-целевое хранилище успешных атак (max 10). **Strategy Library** — 5 начальных + извлечение новых через Summarizer; effectiveness = success_rate×0.5 + score×0.3 + recency×0.2. Успех: score ≥ 5.
+**Состояние** — per-goal модель поведения целевой системы (observations, vulnerability_signals, resistance_patterns, strategy_outcomes).
 
-### 6. Библиотека стратегий (ATTACK_STRATEGIES)
+**Память атак** — кросс-целевое хранилище успешных атак (max 10).
+
+**Библиотека стратегий** — 5 начальных + извлечение новых через Summarizer; effectiveness = success_rate×0.5 + score×0.3 + recency×0.2. Успех: score ≥ 5.
+
+### 4. Библиотека стратегий
 
 | № | Стратегия | Описание |
 | :-- | :-------- | :------- |
