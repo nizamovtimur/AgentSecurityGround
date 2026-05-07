@@ -64,12 +64,25 @@ def _parse_args() -> argparse.Namespace:
         default=str(_PACKAGE_ROOT.parent / "artifacts" / "boart_report.json"),
     )
     parser.add_argument("--verbose", action="store_true", help="Enable debug logging.")
+    parser.add_argument(
+        "--no-progress",
+        action="store_true",
+        help="Отключить tqdm (удобно для логов и CI).",
+    )
     return parser.parse_args()
 
 
 def main() -> None:
     args = _parse_args()
     setup_logging(verbose=args.verbose)
+    if not args.target_description.strip():
+        print(
+            "ERROR: --target-description is required for standalone BOART "
+            "(кратко: миссия системы и поверхность атаки; в run_pipeline "
+            "описание строится из S1+S2 автоматически).",
+            file=sys.stderr,
+        )
+        raise SystemExit(2)
     try:
         logger.info("Starting BOART run against endpoint: %s", args.target_endpoint)
         report = BoartRunner(
@@ -80,6 +93,7 @@ def main() -> None:
                 language=args.language,
                 max_strategies=args.max_strategies,
                 target_description=args.target_description,
+                show_progress=not args.no_progress,
             ),
             llm_client=OpenAIClient(OpenAIConfig(model=args.model)),
             target_client=HttpTargetClient(

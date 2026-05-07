@@ -4,7 +4,6 @@ from boart.models import AttackTarget, BeliefState, GoalRunResult, StepResult
 from boart.runner import BoartConfig, BoartRunner
 from boart.target_client import (
     HttpTargetClient,
-    MockTargetClient,
     TargetClient,
     extract_langflow_run_message,
     http_target_timeout_from_env,
@@ -15,7 +14,6 @@ __all__ = [
     "BoartRunner",
     "TargetClient",
     "HttpTargetClient",
-    "MockTargetClient",
     "extract_langflow_run_message",
     "http_target_timeout_from_env",
     "AttackTarget",

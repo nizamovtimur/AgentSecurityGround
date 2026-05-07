@@ -7,6 +7,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+from tqdm.auto import tqdm
+
 from boart.attack_memory import AttackMemory, MemoryItem
 from boart.goal_loader import load_attack_targets
 from boart.models import BeliefState, GoalRunResult, StepResult
@@ -32,6 +34,7 @@ class BoartConfig:
     max_strategies: int = 10
     success_threshold: float = 5.0
     target_description: str = ""
+    show_progress: bool = True
 
 
 class BoartRunner:
@@ -74,7 +77,14 @@ class BoartRunner:
             language=self.config.language,
         )
         results: list[GoalRunResult] = []
-        for target in targets:
+        goal_iter = targets
+        if self.config.show_progress and targets:
+            goal_iter = tqdm(
+                targets,
+                desc="BOART",
+                unit="goal",
+            )
+        for target in goal_iter:
             results.append(self._run_goal(target.attack_name, target.goal))
         success_count = sum(1 for item in results if item.success)
         return {
@@ -84,6 +94,7 @@ class BoartRunner:
                 "max_steps": self.config.max_steps,
                 "language": self.config.language,
                 "max_strategies": self.config.max_strategies,
+                "show_progress": self.config.show_progress,
             },
             "summary": {
                 "goals_total": len(results),
@@ -105,7 +116,20 @@ class BoartRunner:
         max_score = 1.0
         success = False
 
-        for step in range(1, self.config.max_steps + 1):
+        steps_iter: Any = range(1, self.config.max_steps + 1)
+        if self.config.show_progress:
+            _desc = (
+                (attack_name[:37] + "…")
+                if len(attack_name) > 40
+                else (attack_name or "goal")
+            )
+            steps_iter = tqdm(
+                range(1, self.config.max_steps + 1),
+                desc=_desc,
+                leave=False,
+                unit="step",
+            )
+        for step in steps_iter:
             boss_reply = self._run_boss_step(
                 step=step,
                 goal=goal,

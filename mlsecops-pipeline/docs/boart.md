@@ -28,6 +28,7 @@ cd mlsecops-pipeline
 python -m cli.run_boart \
   --attacks system_prompt_leakage,harmbench_text \
   --target-endpoint http://localhost:7860/api/v1/run/<FLOW_ID> \
+  --target-description "Кратко: миссия системы и какие инструменты доступны агенту." \
   --goals-per-attack 3 \
   --max-steps 5 \
   --language ru \
@@ -39,7 +40,7 @@ python -m cli.run_boart \
 
 ### Langflow (`/api/v1/run/<FLOW_ID>`)
 
-If `--target-endpoint` contains `/api/v1/run/`, `HttpTargetClient` uses the Langflow run API (same shape as `ClientLangFlow` in `llamator/llamator-borat.ipynb`):
+If `--target-endpoint` contains `/api/v1/run/`, `HttpTargetClient` delegates to **`LangflowClient`** in `services/langflow_client` (the same module that fetches flow JSON for S1 via `GET /api/v1/flows/...`). Payload matches `ClientLangFlow` in `llamator/llamator-borat.ipynb`:
 
 - **POST** JSON: `output_type`, `input_type` (`chat`), `input_value` (current user/attacker line), `session_id` (UUID, generated for every request/send; each Langflow call starts a fresh session).
 - **Header:** `x-api-key` from env `LANGFLOW_API_KEY`.

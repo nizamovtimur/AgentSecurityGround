@@ -1,4 +1,4 @@
-"""Threat modeling service based on MAESTRO and flow synopsis."""
+"""Отчёт MAESTRO по графу Langflow (один вызов LLM)."""
 
 from __future__ import annotations
 
@@ -16,11 +16,7 @@ def _read_text(path: str | Path) -> str:
 
 
 class ThreatModelingService:
-    """Generates markdown threat model report from normalized graph.
-
-    ``threat_model_path`` is injected into ``<THREAT_MODEL_CONTEXT>`` in the system template
-    (эталон из ``prompts/threat_model.txt``: поверхности, классы угроз, процесс оценки).
-    """
+    """MAESTRO: системный промпт из шаблонов + краткий user-запрос → Markdown."""
 
     def __init__(
         self,
@@ -46,8 +42,8 @@ class ThreatModelingService:
             system_prompt=system_prompt,
             user_prompt=(
                 "Используя фреймворк MAESTRO и JSON графа workflow из системного сообщения, "
-                "сформируй полный отчёт в Markdown на русском языке со всеми обязательными разделами. "
-                "Не выдумывай узлы, отсутствующие в JSON."
+                "сформируй полный отчёт в Markdown на русском языке со всеми обязательными "
+                "разделами (0–7). Не выдумывай узлы, отсутствующие в JSON."
             ),
         )
 

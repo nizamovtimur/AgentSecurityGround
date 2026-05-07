@@ -1,83 +1,59 @@
-# Static Security Analyzer (S1 -> S2)
+# Static Security Analyzer (S1 + S2)
 
-## Purpose
-
-This module implements static security analysis for Langflow-based agentic systems:
-
-1. Parse large Langflow flow JSON deterministically.
-2. Build compact security synopsis for LLM context.
-3. Generate MAESTRO-style threat model markdown report through OpenAI.
+Static analysis of Langflow flows: parse → synopsis → MAESTRO threat model.
 
 ## Module Layout
 
-- `parsers/langflow_parser.py`: tolerant deterministic parser.
-- `models/security_graph.py`: normalized graph dataclasses.
-- `services/synopsis_builder.py`: compact synopsis builder.
-- `llm/openai_client.py`: OpenAI wrapper with `python-dotenv`.
-- `services/threat_modeling_service.py`: prompt assembly + LLM call.
-- `cli/run_static_threat_model.py`: CLI entrypoint for one flow.
+- `parsers/langflow_parser.py` — tolerant deterministic parser.
+- `models/security_graph.py` — normalized graph dataclasses.
+- `services/synopsis_builder.py` — compact synopsis + `build_target_description`.
+- `services/threat_modeling_service.py` — MAESTRO prompt assembly + LLM call.
+- `llm/openai_client.py` — OpenAI wrapper with `python-dotenv`.
 
-## Deterministic Parsing Rules
+## Parsing Rules
 
-- Use structured fields from `edge.data.sourceHandle` and `edge.data.targetHandle` as source of truth.
-- Do not parse semantics from `edge.id` and stringified handles.
-- Gracefully skip optional/missing fields.
-- Remove token-heavy and non-essential fields such as `template.code`.
+- Source of truth: `edge.data.sourceHandle` / `edge.data.targetHandle` structured fields.
+  Do not parse semantics from `edge.id` strings.
+- Skip optional/missing fields gracefully.
+- Drop `template.code` (token-heavy).
 - Redact sensitive template values (`api_key`, `token`, `secret`, `password`).
 
 ## Synopsis Contract
 
 `build_security_synopsis()` returns:
 
-- `summary`: node/edge/entrypoint/control counters.
-- `entrypoints`: externally reachable nodes (`ChatInput`, `URL`, `File`, `MCPTools`, `APIRequest`).
-- `controls`: security/validation nodes (`GuardrailValidator`, parser/filter-like controls).
-- `assets`: normalized core assets (`<display_name>::<role>`).
-- `nodes`: node list with `id`, `name`, `type`, `role`, `risk_flags`, `author_parameters` (key meta-params from template).
-- `edges`: compact edge list with dataflow handle semantics.
-- `system_prompts`: system prompt texts (static fields + dynamic via `prompt → system_prompt` edges).
-- `prompt_edges`, `tool_edges`: semantic edge subsets (system prompt sources; component-as-tool wiring).
-- `author_parameters_by_node`: key parameters set by the flow author (system prompt, model, temperature, tool_mode, …).
+- `summary` — counters (nodes, edges, entrypoints, controls).
+- `entrypoints` — externally reachable nodes (`ChatInput`, `URL`, `File`, `MCPTools`, `APIRequest`).
+- `controls` — security / validation nodes (`GuardrailValidator`, parser/filter-like controls).
+- `assets` — `<display_name>::<role>`.
+- `nodes` — `id`, `name`, `type`, `role`, `risk_flags`, `author_parameters`.
+- `edges` — compact edge list with dataflow handle semantics.
+- `system_prompts` — system prompt texts (static + dynamic via `prompt → system_prompt` edges).
+- `prompt_edges`, `tool_edges` — semantic edge subsets.
+- `author_parameters_by_node` — key params set by the flow author.
 
-## LLM Integration
+## Threat Modeling
 
-`ThreatModelingService` composes prompt from:
+`ThreatModelingService.generate_report(graph)` composes prompt from:
 
-- `prompts/threat_model.txt` (текст для `<THREAT_MODEL_CONTEXT>`: поверхности, классы угроз, процесс),
-- `prompts/threat_model_system_ru.txt` (инструкции и структура отчёта; плейсхолдеры `<THREAT_MODEL_CONTEXT>`, `<JSON>`),
-- generated synopsis JSON.
+- `prompts/threat_model.txt` → `<THREAT_MODEL_CONTEXT>` (поверхности, классы угроз, процесс).
+- `prompts/threat_model_system_ru.txt` (плейсхолдеры `<THREAT_MODEL_CONTEXT>`, `<JSON>`).
+- Synopsis JSON.
 
-`OpenAIClient` reads API key via `.env` (`OPENAI_API_KEY`) and uses `openai` SDK.
+Структура отчёта MAESTRO: секции **0–7**. Раздел **6** объединяет риски, эксплуатацию и наблюдаемость вокруг **сквозных kill chain**’ов по JSON-топологии и **узловых точках (choke points)**; раздел **7** связывает рекомендации с именованными цепочками и этими точками.
 
-## Usage
-
-```bash
-cd mlsecops-pipeline
-python -m pip install -r requirements.txt
-python -m cli.run_static_threat_model \
-  --flow ../langflow/flows/Windchaser.json \
-  --synopsis-output ../artifacts/windchaser-security-synopsis.json \
-  --output ../artifacts/windchaser-threat-model.md
-```
-
-CLI outputs two artifacts:
-
-- intermediate `security_synopsis.json` (for auditability and debugging);
-- final MAESTRO markdown threat model report.
-
-## Tests
-
-Run:
+Единый вывод **`security_assessment.md`** формирует CLI в конце **S2**: отметка MSK (UTC+3), метаданные корня экспорта флоу, полный текст MAESTRO, формальный блок политик и **вердикт для security gate в прод** — с объяснением, почему MAESTRO может давать качественные замечания даже при `PASS` по политикам. При `--no-compliance` gate помечен как не установлен.
 
 ```bash
-cd mlsecops-pipeline
-pytest -q
+python -m cli.run_pipeline --flow path/to/flow.json --no-boart --no-compliance \
+  --artifacts-dir ../artifacts/sast-only
 ```
 
-Coverage focus:
+Пошаговый режим только S1 и S2 (без выполнения ячеек S3–S5): `pipeline_demo.ipynb`.
 
-- Parser robustness on real flow examples.
-- Sensitive field redaction.
-- Synopsis extraction and high-risk marker logic.
-- Prompt assembly and threat modeling service contract.
 
+```bash
+cd mlsecops-pipeline && pytest -q
+```
+
+Covers parser robustness, sensitive redaction, synopsis extraction, prompt assembly.

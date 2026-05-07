@@ -4,7 +4,7 @@ import json
 from pathlib import Path
 
 from models.security_graph import SecurityEdge, SecurityGraph, SecurityNode
-from services.synopsis_builder import build_security_synopsis
+from services.synopsis_builder import build_security_synopsis, build_target_description
 from services.threat_modeling_service import ThreatModelingService
 
 from conftest import PIPELINE_ROOT
@@ -113,3 +113,16 @@ def test_service_uses_real_prompt_templates() -> None:
     )
     report = service.generate_report(build_sample_graph())
     assert "Анализ угроз агентного workflow" in report
+
+
+def test_target_description_labels_compliance_roll_up() -> None:
+    synopsis = build_security_synopsis(build_sample_graph())
+    threat_md = "# Анализ\n\n## 1. Миссия\nСистема выполняет задачу А."
+    dec = "WARN: по формальным критериям отмечены замечания по пути данных к агенту."
+    text = build_target_description(
+        synopsis, threat_md, compliance_decision_statement=dec
+    )
+    assert "задачу А" in text
+    assert "Формальное заключение по политикам MLSecOps" in text
+    assert "отдельно от текста MAESTRO" in text
+    assert "WARN" in text

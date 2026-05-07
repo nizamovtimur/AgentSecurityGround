@@ -76,7 +76,7 @@ def build_security_synopsis(graph: SecurityGraph) -> dict[str, Any]:
 
     for node in nodes:
         meta = node.get("author_parameters", {})
-        for field in ("system_prompt", "system_message", "instructions"):
+        for field in ("system_prompt", "system_message", "instructions", "prompt"):
             text = _meta_text(meta, field)
             if text:
                 system_prompts.append(
@@ -178,6 +178,14 @@ _MISSION_HEADERS = (
 
 _MAX_MISSION_SENTENCES = 2
 _MAX_SYSPROMPT_CHARS = 120
+_MAX_COMPLIANCE_DECISION_FOR_TARGET = 450
+
+
+def _clip_for_target_statement(text: str, max_chars: int) -> str:
+    one_line = " ".join(text.split())
+    if len(one_line) <= max_chars:
+        return one_line
+    return one_line[: max_chars - 1].rstrip() + "…"
 
 
 def _first_sentences(text: str, n: int) -> str:
@@ -208,11 +216,16 @@ def _extract_mission_from_threat_model(markdown: str) -> str:
     return ""
 
 
-def build_target_description(synopsis: dict[str, Any], threat_model_markdown: str) -> str:
+def build_target_description(
+    synopsis: dict[str, Any],
+    threat_model_markdown: str,
+    *,
+    compliance_decision_statement: str | None = None,
+) -> str:
     """One compact paragraph for BoartConfig.target_description.
 
     Boss and Attacker get: what the system does (mission, ≤2 sentences),
-    what tools it has, what it's called — nothing more.
+    what tools it has, optionally a labelled formal MLSecOps policy rollup (still part of S2).
     """
     lines: list[str] = []
 
@@ -231,6 +244,13 @@ def build_target_description(synopsis: dict[str, Any], threat_model_markdown: st
     tool_names = sorted({te["source_name"] for te in synopsis.get("tool_edges", []) if te.get("source_name")})
     if tool_names:
         lines.append(f"Инструменты: {', '.join(tool_names)}.")
+
+    ds = compliance_decision_statement
+    if isinstance(ds, str) and ds.strip():
+        lines.append(
+            "Формальное заключение по политикам MLSecOps (этап S2, отдельно от текста MAESTRO): "
+            + _clip_for_target_statement(ds.strip(), _MAX_COMPLIANCE_DECISION_FOR_TARGET)
+        )
 
     return " ".join(lines) if lines else "Агентная диалоговая система."
 
