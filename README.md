@@ -85,7 +85,7 @@ docker compose --env-file .env up -d --build
 
 [[Замеры ASR](llamator/asr_evaluation.ipynb)]
 
-**Boss-Orchestrated Agentic Red-Teaming** — методология агентного редтиминга, в которой стратегический агент (Boss) оркестрирует действия атакующего агента (Attacker) при тестировании мультиагентных диалоговых систем в условиях black-box. Метод реализован в рамках фреймворка [LLAMATOR](https://github.com/LLAMATOR-Core/llamator) и использует единую библиотеку стратегий совместно с AutoDAN-Turbo и CoP.
+**Boss-Orchestrated Agentic Red-Teaming** — методология агентного редтиминга, в которой стратегический агент (Boss) оркестрирует действия атакующего агента (Attacker) при тестировании мультиагентных диалоговых систем в условиях black-box. Метод реализован в рамках фреймворка [LLAMATOR](https://github.com/LLAMATOR-Core/llamator/pull/182) и использует единую библиотеку стратегий совместно с AutoDAN-Turbo и CoP.
 
 ### 1. Сравнение методов jailbreak
 
@@ -114,53 +114,21 @@ Attacker: THOUGHT (strategy + guidance + goal) → ACTION (>>>ATTACK...<<<ATTACK
 ### 3. Схема
 
 ```mermaid
-sequenceDiagram
-    autonumber
+graph TD
+    DATA["Набор целей"] -->|Цель атаки| BOSS["Управляющий агент"]
 
-    participant DATA as Набор целей
-    participant LIB as Библиотека стратегий
-    participant BOSS as Управляющий агент
-    participant ATT as Атакующий агент
-    participant TGT as Целевая система
-    participant JUDGE as Агент-судья
-    participant SUM as LLM-суммаризатор
-    participant BEL as Состояние
-    participant MEM as Память атак
+    BOSS <--> |Стратегии| LIB["Библиотека стратегий"]
+    BOSS <--> |Память атак| MEM["Память атак"]
+    BOSS <--> |Состояние атаки| BEL["Состояние"]
 
-    DATA->>BOSS: Цель атаки G
-    BOSS->>BEL: Инициализация состояния
+    BOSS -->|Управление атакой| ATT["Атакующий агент"]
+    ATT -->|Запросы| TGT["Тестируемая система"]
 
-    loop До N шагов
-        BOSS->>LIB: Получить стратегии
-        LIB-->>BOSS: Список стратегий
+    TGT -->|Ответы| JUDGE["Агент-судья"]
+    JUDGE -->|Оценка атаки| BOSS
 
-        BOSS->>MEM: Получить память атак
-        MEM-->>BOSS: Успешные примеры
-
-        BOSS->>ATT: Директива + стратегия
-        ATT->>TGT: Атакующий запрос
-
-        TGT->>JUDGE: Ответ системы
-        JUDGE->>BOSS: Score
-
-        BOSS->>BEL: Обновить состояние
-
-        alt Score >= 5
-            BOSS->>MEM: Сохранить успешную атаку
-
-            BOSS->>SUM: Описание успешной атаки
-            SUM->>BOSS: Новая стратегия
-
-            BOSS->>LIB: Добавить стратегию
-            LIB->>LIB: Обновить эффективность
-
-            LIB->>LIB: Policy update (пересчёт и отбор лучших)
-
-        else Score < 5
-            BOSS->>BOSS: Коррекция стратегии
-        end
-
-    end
+    BOSS -->|История взаимодействия| SUM["Агент-суммаризатор"]
+    SUM -->|Новые стратегии| LIB
 ```
 
 **Состояние** — per-goal модель поведения целевой системы (observations, vulnerability_signals, resistance_patterns, strategy_outcomes).
@@ -178,3 +146,15 @@ sequenceDiagram
 | 3 | Legitimate Internal Request Framing | Фрейминг как внутренняя бизнес-потребность |
 | 4 | Payload Injection via Form Field | Внедрение payload в форму/структурированный вход |
 | 5 | Instruction Sandwiching | Вредоносное между безобидными инструкциями |
+
+## MLSecOps Pipeline
+
+Подпроект [mlsecops-pipeline](mlsecops-pipeline) строит цепочку: разбор графа Langflow → синопсис → отчёт по угрозам (MAESTRO) → проверка политик REQ-* → по желанию план атак и BOART → итоговый `final_report.json`.
+
+**Запуск:** см. [пошаговый сценарий в ноутбуке](mlsecops-pipeline/pipeline_demo.ipynb).
+
+**CLI:** без живой цели можно только разбор и артефакты (`--flow`, `--no-boart`); для BOART нужны endpoint цели и переменные окружения. Полезные флаги: `--no-compliance`, `--no-boart`, `--attacks`, `--insecure` (TLS без проверки).
+
+**Окружение:** в основном `OPENAI_API_KEY`, при необходимости `OPENAI_BASE_URL` / модель / таймауты; для Langflow — `LANGFLOW_URL`, `FLOW_ID`, `LANGFLOW_API_KEY`; таймауты цели и SSL — см. README подпроекта.
+
+**Артефакты в `--artifacts-dir`:** среди прочего `security_synopsis.json`, `threat_model.md`, `compliance_report.json`, `security_assessment.md`, `attack_plan.json`, `boart_report.json`, `final_report.json`.
