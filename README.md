@@ -147,14 +147,8 @@ graph TD
 | 4 | Payload Injection via Form Field | Внедрение payload в форму/структурированный вход |
 | 5 | Instruction Sandwiching | Вредоносное между безобидными инструкциями |
 
-## MLSecOps Pipeline
+## Langflow Validator + BOART
 
-Подпроект [mlsecops-pipeline](mlsecops-pipeline) строит цепочку: разбор графа Langflow → синопсис → отчёт по угрозам (MAESTRO) → проверка политик REQ-* → по желанию план атак и BOART → итоговый `final_report.json`.
+Подпроект [mlsecops-pipeline](mlsecops-pipeline): Security Gate (модель угроз, REQ-*, вердикт) и **BOART** (выбор датасетов, состязательный прогон, отчёт с ASR).
 
-**Запуск:** см. [пошаговый сценарий в ноутбуке](mlsecops-pipeline/pipeline_demo.ipynb).
-
-**CLI:** без живой цели можно только разбор и артефакты (`--flow`, `--no-boart`); для BOART нужны endpoint цели и переменные окружения. Полезные флаги: `--no-compliance`, `--no-boart`, `--attacks`, `--insecure` (TLS без проверки).
-
-**Окружение:** в основном `OPENAI_API_KEY`, при необходимости `OPENAI_BASE_URL` / модель / таймауты; для Langflow — `LANGFLOW_URL`, `FLOW_ID`, `LANGFLOW_API_KEY`; таймауты цели и SSL — см. README подпроекта.
-
-**Артефакты в `--artifacts-dir`:** среди прочего `security_synopsis.json`, `threat_model.md`, `compliance_report.json`, `security_assessment.md`, `attack_plan.json`, `boart_report.json`, `final_report.json`.
+**Демо:** [validator_demo.ipynb](mlsecops-pipeline/validator_demo.ipynb).

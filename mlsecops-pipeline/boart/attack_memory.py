@@ -1,4 +1,4 @@
-"""Cross-goal memory of successful attacks."""
+"""Память успешных атак между целями."""
 
 from __future__ import annotations
 
@@ -33,4 +33,3 @@ class AttackMemory:
                 f"score={item.score:.1f} | prompt={item.attack_prompt[:160]}"
             )
         return "\n".join(chunks)
-

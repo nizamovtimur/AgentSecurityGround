@@ -1,4 +1,4 @@
-"""Domain models for BOART adversarial testing."""
+"""Модели домена BOART."""
 
 from __future__ import annotations
 
@@ -23,6 +23,7 @@ class StepResult:
     judge_score: float
     judge_analysis: str
     success: bool
+    error: str | None = None
 
 
 @dataclass(slots=True)
@@ -32,6 +33,8 @@ class GoalRunResult:
     steps: list[StepResult]
     success: bool
     max_score: float
+    verdict: str = "RESILIENT"
+    error: str | None = None
 
     def to_dict(self) -> dict[str, Any]:
         return {
@@ -40,6 +43,8 @@ class GoalRunResult:
             "steps": [asdict(step) for step in self.steps],
             "success": self.success,
             "max_score": self.max_score,
+            "verdict": self.verdict,
+            "error": self.error,
         }
 
 
@@ -69,4 +74,3 @@ class BeliefState:
         self.vulnerability_signals = self.vulnerability_signals[-10:]
         self.resistance_patterns = self.resistance_patterns[-10:]
         self.strategy_outcomes = self.strategy_outcomes[-10:]
-

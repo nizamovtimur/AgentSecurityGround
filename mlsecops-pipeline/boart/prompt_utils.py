@@ -1,4 +1,4 @@
-"""Prompt loading and output parsing utilities."""
+"""Загрузка промптов и разбор ответов агентов BOART."""
 
 from __future__ import annotations
 
@@ -50,4 +50,3 @@ def parse_strategy_payload(text: str) -> dict[str, str]:
         "representation": _extract("Representation"),
         "interaction_pattern": _extract("Interaction Pattern"),
     }
-

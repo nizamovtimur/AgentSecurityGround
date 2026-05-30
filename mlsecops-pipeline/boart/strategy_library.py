@@ -1,4 +1,4 @@
-"""Dynamic strategy library with effectiveness tracking."""
+"""Библиотека стратегий с учётом эффективности."""
 
 from __future__ import annotations
 
@@ -39,7 +39,7 @@ class StrategyLibrary:
     _tick: int = 0
 
     @classmethod
-    def from_json(cls, path: str | Path, max_size: int = 10) -> "StrategyLibrary":
+    def from_json(cls, path: str | Path, max_size: int = 10) -> StrategyLibrary:
         raw = json.loads(Path(path).read_text(encoding="utf-8"))
         strategies = [
             StrategyRecord(
@@ -121,4 +121,3 @@ class StrategyLibrary:
             if item.strategy.lower() == normalized:
                 return item
         return None
-

@@ -404,7 +404,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "070182ae-18be-48ae-ba93-18a4fdb8cecd"
+                "value": "c423206d-683c-442a-8602-a402f92d3188"
               },
               "_type": "Component",
               "api_key": {
@@ -1919,7 +1919,7 @@
               },
               "_frontend_node_folder_id": {
                 "input_types": [],
-                "value": "070182ae-18be-48ae-ba93-18a4fdb8cecd"
+                "value": "c423206d-683c-442a-8602-a402f92d3188"
               },
               "_type": "Component",
               "add_current_date_tool": {
@@ -2597,7 +2597,7 @@
             ],
             "frozen": false,
             "icon": "Mcp",
-            "last_updated": "2026-04-15T12:03:15.108Z",
+            "last_updated": "2026-05-27T08:09:46.145Z",
             "legacy": false,
             "lf_version": "1.8.3",
             "metadata": {
@@ -2649,7 +2649,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "070182ae-18be-48ae-ba93-18a4fdb8cecd"
+                "value": "c423206d-683c-442a-8602-a402f92d3188"
               },
               "_type": "Component",
               "code": {
@@ -2939,7 +2939,7 @@
             ],
             "frozen": false,
             "icon": "file-text",
-            "last_updated": "2026-04-15T12:03:15.109Z",
+            "last_updated": "2026-05-27T08:09:46.146Z",
             "legacy": false,
             "lf_version": "1.8.3",
             "metadata": {
@@ -2995,7 +2995,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "070182ae-18be-48ae-ba93-18a4fdb8cecd"
+                "value": "c423206d-683c-442a-8602-a402f92d3188"
               },
               "_type": "Component",
               "advanced_mode": {
@@ -3430,10 +3430,10 @@
                   "gz"
                 ],
                 "file_path": [
-                  "b4cb1a65-3e50-4b17-9960-deda0e452aab/kitesurf_customers.csv",
-                  "b4cb1a65-3e50-4b17-9960-deda0e452aab/kitesurf_training_plan.csv",
-                  "b4cb1a65-3e50-4b17-9960-deda0e452aab/Kitesurfing-Mini-Guide.pdf",
-                  "b4cb1a65-3e50-4b17-9960-deda0e452aab/preview_discovery_eng.pdf"
+                  "575397d7-100c-4be2-9a7f-324c25f2a7fa/kitesurf_customers.csv",
+                  "575397d7-100c-4be2-9a7f-324c25f2a7fa/preview_discovery_eng.pdf",
+                  "575397d7-100c-4be2-9a7f-324c25f2a7fa/kitesurf_training_plan.csv",
+                  "575397d7-100c-4be2-9a7f-324c25f2a7fa/Kitesurfing-Mini-Guide.pdf"
                 ],
                 "info": "Supported file extensions: csv, json, pdf, txt, md, mdx, yaml, yml, xml, html, htm, docx, py, sh, sql, js, ts, tsx, adoc, asciidoc, asc, bmp, dotx, dotm, docm, jpg, jpeg, png, potx, ppsx, pptm, potm, ppsm, pptx, tiff, xls, xlsx, xhtml, webp; optionally bundled in file extensions: zip, tar, tgz, bz2, gz",
                 "list": true,
@@ -3639,8 +3639,8 @@
           "width": 320
         },
         "position": {
-          "x": 3730.4583481777854,
-          "y": 978.2474112757043
+          "x": 3693.567881320862,
+          "y": 1143.8037818758487
         },
         "selected": false,
         "type": "genericNode"
@@ -5860,7 +5860,7 @@
             ],
             "frozen": false,
             "icon": "Chroma",
-            "last_updated": "2026-04-15T12:03:15.128Z",
+            "last_updated": "2026-05-27T08:09:46.157Z",
             "legacy": false,
             "lf_version": "1.8.3",
             "metadata": {
@@ -5920,7 +5920,7 @@
                 "value": "1b40c9e0-35dc-4823-85b8-6e692d1473de"
               },
               "_frontend_node_folder_id": {
-                "value": "070182ae-18be-48ae-ba93-18a4fdb8cecd"
+                "value": "c423206d-683c-442a-8602-a402f92d3188"
               },
               "_type": "Component",
               "allow_duplicates": {
@@ -6347,9 +6347,9 @@
       }
     ],
     "viewport": {
-      "x": -1621.739598743296,
-      "y": -387.76452529693995,
-      "zoom": 0.45876900032245044
+      "x": -1336.0224706646957,
+      "y": -348.15522081908625,
+      "zoom": 0.4117791835778329
     }
   },
   "description": "",

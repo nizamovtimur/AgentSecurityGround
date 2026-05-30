@@ -1,4 +1,4 @@
-"""Load and sample attack goals from datasets."""
+"""Загрузка целей атак из datasets/*.parquet."""
 
 from __future__ import annotations
 
@@ -20,10 +20,10 @@ def load_attack_targets(
     for attack_name in attacks:
         dataset_path = base / f"{attack_name}.parquet"
         if not dataset_path.exists():
-            raise FileNotFoundError(f"Dataset not found for attack '{attack_name}': {dataset_path}")
+            raise FileNotFoundError(f"Датасет не найден: {dataset_path}")
         frame = pd.read_parquet(dataset_path)
         if "goal" not in frame.columns:
-            raise ValueError(f"Dataset {dataset_path} must contain 'goal' column.")
+            raise ValueError(f"В {dataset_path} нужна колонка 'goal'.")
         if language in {"ru", "en"} and "language" in frame.columns:
             filtered = frame[frame["language"].fillna("").str.lower() == language]
             if not filtered.empty:
@@ -38,4 +38,3 @@ def load_attack_targets(
                 )
             )
     return selected
-
