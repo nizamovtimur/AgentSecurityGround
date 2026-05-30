@@ -399,19 +399,13 @@ class BoartRunner:
             target_description=self.config.target_description,
             goal=goal,
         )
-        if step == 1:
-            user_prompt = self.attacker_initial.format(
-                selected_strategy=selected_strategy,
-                boss_guidance=boss_action,
-                goal=goal,
-            )
-        else:
-            user_prompt = self.attacker_refine.format(
-                target_response=target_response,
-                selected_strategy=selected_strategy,
-                boss_guidance=boss_action,
-                goal=goal,
-            )
+        user_prompt = self.attacker_refine.format(
+            target_description=self.config.target_description,
+            target_response=target_response,
+            selected_strategy=selected_strategy,
+            boss_guidance=boss_action,
+            goal=goal,
+        )
         if self._language_ru:
             user_prompt += (
                 "\n\nЕсли цель атаки сформулирована на русском — пиши полезную нагрузку атаки на русском. "
